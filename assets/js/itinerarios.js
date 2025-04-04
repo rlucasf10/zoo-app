@@ -119,43 +119,81 @@ document.addEventListener('DOMContentLoaded', function () {
     checkbox.addEventListener('change', actualizarVistaPreviaPersonalizada)
   })
 
-  // Manejo del formulario
-  const formItinerario = document.getElementById('formItinerario')
-  formItinerario.addEventListener('submit', async function (e) {
-    e.preventDefault()
-
+  // Función para guardar el itinerario personalizado
+  function guardarItinerarioPersonalizado () {
     const nombre = document.getElementById('nombreItinerario').value
     const duracion = document.getElementById('duracion').value
     const puntosInteres = Array.from(
       document.querySelectorAll('.puntos-interes input:checked')
     ).map(checkbox => checkbox.nextElementSibling.textContent)
 
-    try {
-      const response = await fetch('/zoo-app/api/crear-itinerario.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        credentials: 'same-origin',
-        body: JSON.stringify({
-          nombre,
-          duracion: parseInt(duracion),
-          puntosInteres
+    if (!nombre || !duracion || puntosInteres.length === 0) {
+      alert(
+        'Por favor, completa todos los campos y selecciona al menos un punto de interés.'
+      )
+      return
+    }
+
+    const datos = {
+      nombre: nombre,
+      duracion: parseInt(duracion),
+      puntosInteres: puntosInteres
+    }
+
+    console.log('Enviando datos:', datos)
+
+    fetch('/zoo-app/views/itinerarios.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      credentials: 'same-origin',
+      body: JSON.stringify(datos)
+    })
+      .then(response => {
+        console.log('Estado de la respuesta:', response.status)
+        console.log(
+          'Headers de la respuesta:',
+          Object.fromEntries(response.headers.entries())
+        )
+
+        return response.text().then(text => {
+          console.log('Respuesta del servidor:', text)
+          try {
+            return JSON.parse(text)
+          } catch (e) {
+            console.error('Error al parsear JSON:', e)
+            throw new Error('Error del servidor: ' + text)
+          }
         })
       })
-
-      const data = await response.json()
-
-      if (response.ok) {
+      .then(data => {
+        if (data.error) {
+          throw new Error(data.error)
+        }
         alert('¡Itinerario creado con éxito!')
-        formItinerario.reset()
+        // Limpiar el formulario
+        document.getElementById('nombreItinerario').value = ''
+        document.getElementById('duracion').value = ''
+        document.querySelectorAll('.puntos-interes input').forEach(checkbox => {
+          checkbox.checked = false
+        })
         actualizarVistaPreviaPersonalizada()
-      } else {
-        alert(data.error || 'Error al crear el itinerario')
-      }
-    } catch (error) {
-      console.error('Error:', error)
-      alert('Error al crear el itinerario. Por favor, intenta de nuevo.')
-    }
-  })
+      })
+      .catch(error => {
+        console.error('Error completo:', error)
+        if (error.message === 'Failed to fetch') {
+          alert(
+            'Error de conexión. Por favor, verifica tu conexión a internet e intenta de nuevo.'
+          )
+        } else {
+          alert('Error al crear el itinerario: ' + error.message)
+        }
+      })
+  }
+
+  // Manejo del formulario
+  const formItinerario = document.getElementById('formItinerario')
+  formItinerario.addEventListener('submit', guardarItinerarioPersonalizado)
 })

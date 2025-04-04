@@ -22,10 +22,10 @@ error_log("Username: $username");
 
 try {
     // Crear la conexión PDO usando charset=utf8mb4 para una mayor compatibilidad con Unicode
-    $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
 
     // Configurar PDO para lanzar excepciones en caso de error
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     error_log("Conexión a la base de datos establecida exitosamente");
 

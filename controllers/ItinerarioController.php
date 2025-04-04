@@ -8,6 +8,9 @@ class ItinerarioController
     public function __construct()
     {
         global $pdo;
+        if (!$pdo) {
+            throw new Exception("No se pudo establecer la conexión a la base de datos");
+        }
         $this->conn = $pdo;
     }
 
@@ -114,6 +117,21 @@ class ItinerarioController
             error_log("Puntos de interés: " . print_r($puntosInteres, true));
             error_log("Usuario ID: " . $usuarioId);
 
+            // Verificar que los datos sean válidos
+            if (empty($nombre) || empty($duracion) || empty($puntosInteres) || empty($usuarioId)) {
+                throw new Exception("Todos los campos son requeridos");
+            }
+
+            // Verificar que la duración sea un número válido
+            if (!is_numeric($duracion) || $duracion <= 0) {
+                throw new Exception("La duración debe ser un número positivo");
+            }
+
+            // Verificar que puntosInteres sea un array
+            if (!is_array($puntosInteres)) {
+                throw new Exception("Los puntos de interés deben ser un array");
+            }
+
             $sql = "INSERT INTO itinerarios (nombre, duracion, puntos_interes, usuario_id) 
                     VALUES (:nombre, :duracion, :puntos_interes, :usuario_id)";
 
@@ -121,6 +139,9 @@ class ItinerarioController
 
             // Convertir el array de puntos de interés a JSON
             $puntosInteresJson = json_encode($puntosInteres);
+            if ($puntosInteresJson === false) {
+                throw new Exception("Error al codificar los puntos de interés");
+            }
 
             $stmt->bindParam(':nombre', $nombre);
             $stmt->bindParam(':duracion', $duracion);
@@ -130,16 +151,17 @@ class ItinerarioController
             $resultado = $stmt->execute();
 
             if (!$resultado) {
-                error_log("Error al ejecutar la consulta: " . print_r($stmt->errorInfo(), true));
-                return false;
+                $errorInfo = $stmt->errorInfo();
+                error_log("Error al ejecutar la consulta: " . print_r($errorInfo, true));
+                throw new Exception("Error al crear el itinerario: " . $errorInfo[2]);
             }
 
             error_log("Itinerario creado con éxito. ID: " . $this->conn->lastInsertId());
             return true;
-        } catch (PDOException $e) {
+        } catch (Exception $e) {
             error_log("Error al crear itinerario: " . $e->getMessage());
             error_log("Stack trace: " . $e->getTraceAsString());
-            return false;
+            throw $e; // Re-lanzar la excepción para manejarla en el controlador
         }
     }
 

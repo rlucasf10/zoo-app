@@ -1,5 +1,98 @@
 <?php
+// Activar reporte de errores
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+ini_set('error_log', 'C:/Apache2/logs/php_errors.log');
+
+// Función para manejar errores
+function handleError($errno, $errstr, $errfile, $errline)
+{
+    error_log("Error [$errno]: $errstr in $errfile on line $errline");
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        header('Content-Type: application/json');
+        http_response_code(500);
+        echo json_encode(['error' => 'Error interno del servidor: ' . $errstr]);
+        exit;
+    }
+    return false;
+}
+
+// Función para manejar excepciones no capturadas
+function handleException($e)
+{
+    error_log("Uncaught Exception: " . $e->getMessage());
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        header('Content-Type: application/json');
+        http_response_code(500);
+        echo json_encode(['error' => 'Error interno del servidor: ' . $e->getMessage()]);
+        exit;
+    }
+}
+
+// Registrar los manejadores de errores
+set_error_handler('handleError');
+set_exception_handler('handleException');
+
 session_start();
+
+// Verificar si es una petición POST antes de incluir cualquier otro archivo
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    header('Content-Type: application/json');
+
+    try {
+        // Verificar si el usuario está autenticado
+        if (!isset($_SESSION['usuario_id'])) {
+            throw new Exception('Usuario no autenticado');
+        }
+
+        // Obtener los datos del cuerpo de la petición
+        $rawData = file_get_contents('php://input');
+        error_log("Datos recibidos: " . $rawData);
+
+        if (empty($rawData)) {
+            throw new Exception('No se recibieron datos');
+        }
+
+        $data = json_decode($rawData, true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new Exception('Error al decodificar JSON: ' . json_last_error_msg());
+        }
+
+        // Validar datos requeridos
+        if (!isset($data['nombre']) || !isset($data['duracion']) || !isset($data['puntosInteres'])) {
+            throw new Exception('Faltan datos requeridos');
+        }
+
+        // Incluir el controlador
+        require_once __DIR__ . '/../controllers/ItinerarioController.php';
+
+        try {
+            $controller = new ItinerarioController();
+            $resultado = $controller->crearItinerario(
+                $data['nombre'],
+                $data['duracion'],
+                $data['puntosInteres'],
+                $_SESSION['usuario_id']
+            );
+
+            echo json_encode(['success' => true, 'message' => $resultado]);
+        } catch (Exception $e) {
+            error_log("Error al crear itinerario: " . $e->getMessage());
+            http_response_code(500);
+            echo json_encode(['error' => 'Error al crear el itinerario: ' . $e->getMessage()]);
+        }
+    } catch (Exception $e) {
+        error_log("Error en itinerarios.php: " . $e->getMessage());
+        error_log("Stack trace: " . $e->getTraceAsString());
+        http_response_code(500);
+        echo json_encode(['error' => $e->getMessage()]);
+    }
+    exit;
+}
+
+// Si no es POST, incluir el header y mostrar la página
+require_once __DIR__ . '/../controllers/ItinerarioController.php';
 require_once __DIR__ . '/plantillas/header.php';
 ?>
 
