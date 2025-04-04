@@ -64,7 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception('Faltan datos requeridos');
         }
 
-        // Incluir el controlador
+        // Incluir la conexión a la base de datos y el controlador
+        require_once __DIR__ . '/../config/sql/database.php';
         require_once __DIR__ . '/../controllers/ItinerarioController.php';
 
         try {

@@ -7,11 +7,11 @@ class ItinerarioController
 
     public function __construct()
     {
-        global $pdo;
-        if (!$pdo) {
+        global $conn;
+        if (!$conn) {
             throw new Exception("No se pudo establecer la conexión a la base de datos");
         }
-        $this->conn = $pdo;
+        $this->conn = $conn;
     }
 
     // Agregar un nuevo itinerario
