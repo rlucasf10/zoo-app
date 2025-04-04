@@ -19,7 +19,7 @@
 
             <h3>4. Privacidad</h3>
             <p>Tu privacidad es importante para nosotros. Consulta nuestra <a
-                    href="/views/footer/politica_privacidad.php">Política de Privacidad</a> para obtener detalles sobre
+                    href="/zoo-app/views/footer/politica_privacidad.php">Política de Privacidad</a> para obtener detalles sobre
                 cómo manejamos tu información.</p>
 
             <h3>5. Limitación de Responsabilidad</h3>

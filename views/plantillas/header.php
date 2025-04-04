@@ -1,3 +1,8 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -80,7 +85,7 @@
                                 </div>
                             </li>
                         <?php endif; ?>
-                        <?php if (isset($_SESSION['es_admin']) && ($_SESSION['es_admin'] === true || $_SESSION['es_admin'] === 1)): ?>
+                        <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] === true): ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
