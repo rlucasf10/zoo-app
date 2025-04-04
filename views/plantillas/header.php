@@ -52,22 +52,7 @@ if (session_status() === PHP_SESSION_NONE) {
                     </ul>
 
                     <ul class="navbar-nav ml-auto right-align">
-                        <?php if (!isset($_SESSION['usuario_id'])): ?>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Iniciar sesión
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/zoo-app/views/login_register/login.php">
-                                        <i class="fas fa-sign-in-alt"></i> Iniciar sesión
-                                    </a>
-                                    <a class="dropdown-item" href="/zoo-app/views/login_register/register.php">
-                                        <i class="fas fa-user-plus"></i> Registrarse
-                                    </a>
-                                </div>
-                            </li>
-                        <?php else: ?>
+                        <?php if (isset($_SESSION['usuario_id'])): ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -84,26 +69,41 @@ if (session_status() === PHP_SESSION_NONE) {
                                     </a>
                                 </div>
                             </li>
-                        <?php endif; ?>
-                        <?php if (isset($_SESSION['es_admin']) && $_SESSION['es_admin'] === true): ?>
+                            <?php if (isset($_SESSION['es_admin']) && ($_SESSION['es_admin'] === true || $_SESSION['es_admin'] === 1)): ?>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Panel Administrador
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                                        <a class="dropdown-item" href="/zoo-app/views/admin/dashboard.php">
+                                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="/zoo-app/views/admin/usuarios.php">
+                                            <i class="fas fa-users"></i> Gestión de Usuarios
+                                        </a>
+                                        <a class="dropdown-item" href="/zoo-app/views/admin/animales.php">
+                                            <i class="fas fa-paw"></i> Gestión de Animales
+                                        </a>
+                                        <a class="dropdown-item" href="/zoo-app/views/admin/reservas.php">
+                                            <i class="fas fa-calendar-check"></i> Gestión de Reservas
+                                        </a>
+                                    </div>
+                                </li>
+                            <?php endif; ?>
+                        <?php else: ?>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button"
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Panel Administrador
+                                    Iniciar sesión
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="adminDropdown">
-                                    <a class="dropdown-item" href="/zoo-app/views/admin/dashboard.php">
-                                        <i></i> Dashboard
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="/zoo-app/views/login_register/login.php">
+                                        <i class="fas fa-sign-in-alt"></i> Iniciar sesión
                                     </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="/zoo-app/views/admin/usuarios.php">
-                                        <i></i> Gestión de Usuarios
-                                    </a>
-                                    <a class="dropdown-item" href="/zoo-app/views/admin/animales.php">
-                                        <i></i> Gestión de Animales
-                                    </a>
-                                    <a class="dropdown-item" href="/zoo-app/views/admin/reservas.php">
-                                        <i></i> Gestión de Reservas
+                                    <a class="dropdown-item" href="/zoo-app/views/login_register/register.php">
+                                        <i class="fas fa-user-plus"></i> Registrarse
                                     </a>
                                 </div>
                             </li>
