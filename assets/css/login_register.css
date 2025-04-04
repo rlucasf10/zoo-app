@@ -1,0 +1,132 @@
+/* ==========================
+   ESTRUCTURA DE LA PÁGINA
+   ========================== */
+
+/* Cuerpo y contenedor de la página */
+body,
+html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: "Roboto", Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-dark);
+}
+
+/* Contenedor principal de la página */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Esto asegura que el contenedor crezca y ocupe el espacio restante */
+}
+
+/* ==========================
+   FORMULARIOS Y ENTRADAS
+   ========================== */
+
+input,
+select,
+textarea,
+button[type="submit"],
+a.btn.btn-primary {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  margin-bottom: 15px; /* Espacio entre los campos */
+}
+
+button[type="submit"],
+a.btn.btn-primary {
+  text-align: center;
+  margin-right: 10px;
+}
+
+#google {
+  height: 30px;
+  width: auto;
+}
+
+/* ==========================
+   ESTILOS DE MENSAJES Y ENLACES
+   ========================== */
+
+.alert {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================
+   FORMULARIO Y PÁGINAS DE LOGIN/REGISTER
+   ========================== */
+
+.login .container,
+.register .container {
+  width: 100%;
+  max-width: 600px;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px;
+  box-sizing: border-box;
+}
+
+/* ==========================
+   FOOTER
+   ========================== */
+
+footer {
+  background-color: var(--footer-bg);
+  color: var(--text-light);
+  text-align: center;
+  padding: 20px 0;
+  margin-top: auto;
+}
+
+footer .footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+footer nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer nav ul li {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+footer nav ul li a,
+footer p a {
+  color: var(--text-light);
+  text-decoration: none;
+  transition: color var(--transition-duration);
+}
+
+footer nav ul li a:hover,
+footer p a:hover {
+  color: #f39c12;
+}
+
+footer p {
+  margin: 10px 0 0;
+  font-size: 12px;
+}

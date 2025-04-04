@@ -1,0 +1,95 @@
+# Estructura del Proyecto ZooApp
+
+## Estructura de Directorios
+
+```
+/zoo-app
+├── /assets                 # Recursos estáticos
+│   ├── /css               # Estilos CSS
+│   │   ├── style.css      # Estilos principales
+│   │   ├── login_register.css  # Estilos de login y registro
+│   │   └── dashboard.css  # Estilos del panel de control (vacío)
+│   ├── /js                # Scripts JavaScript
+│   │   └── script.js      # Script principal
+│   └── /images            # Imágenes públicas
+│       ├── hero-bg.jpg    # Imagen de fondo del héroe
+│       ├── hero-bg.webp   # Versión webp de la imagen de fondo
+│       ├── tigre.png      # Imagen del tigre
+│       ├── oso.png        # Imagen del oso
+│       ├── loro.png       # Imagen del loro
+│       └── *.jpeg         # Imágenes de animales (bengala, jirafa, tigre, mono, león, cebra, búfalo, elefante)
+├── /config                # Configuraciones
+│   ├── database.php       # Configuración de la base de datos
+│   ├── zoo-app.sql        # Esquema de la base de datos
+│   ├── checks.sql         # Scripts de verificación
+│   ├── zoo-app.mwb        # Modelo de base de datos
+│   ├── zoo-app.png        # Diagrama de la base de datos
+│   └── relacionesBD.txt   # Documentación de relaciones
+├── /controllers           # Controladores de la aplicación
+│   ├── AdminController.php
+│   ├── AnimalController.php
+│   ├── AuthController.php
+│   ├── EspeciesController.php
+│   ├── ItinerarioController.php
+│   ├── ReservaController.php
+│   └── test_*.php         # Archivos de prueba
+├── /docs                  # Documentación
+│   └── estructura.txt     # Estructura del proyecto
+├── /models                # Modelos de la base de datos
+│   ├── animal.php         # Modelo de animales (vacío)
+│   ├── especie.php        # Modelo de especies (vacío)
+│   ├── itinerario.php     # Modelo de itinerarios (vacío)
+│   ├── reserva.php        # Modelo de reservas (vacío)
+│   └── usuario.php        # Modelo de usuarios (vacío)
+├── /scripts               # Scripts de utilidad
+│   └── subir_github.py    # Script para subir a GitHub
+├── /views                 # Vistas de la aplicación
+│   ├── /admin            # Vistas del panel de administración
+│   │   ├── dashboard.php  # Panel de control (vacío)
+│   │   ├── reservas.php   # Gestión de reservas (vacío)
+│   │   ├── itinerario.php # Gestión de itinerarios (vacío)
+│   │   ├── especies.php   # Gestión de especies (vacío)
+│   │   ├── animales.php   # Gestión de animales (vacío)
+│   │   └── usuarios.php   # Gestión de usuarios (vacío)
+│   ├── /plantillas       # Plantillas reutilizables
+│   │   ├── header.php     # Encabezado común
+│   │   └── footer.php     # Pie de página común
+│   ├── animales.php      # Vista de animales (vacío)
+│   ├── contacto.php      # Página de contacto
+│   ├── dashboard.php     # Panel de control (vacío)
+│   ├── itinerario.php    # Vista de itinerarios (vacío)
+│   ├── login.php         # Vista de inicio de sesión
+│   ├── politica_privacidad.php
+│   ├── register.php      # Vista de registro
+│   ├── reservas.php      # Vista de reservas (vacío)
+│   └── terminos_de_servicio.php
+├── index.php             # Punto de entrada principal
+├── requirements.txt      # Requisitos del sistema
+└── README.md            # Documentación del proyecto
+```
+
+## Descripción de Directorios
+
+
+LOGO GOOGLE: https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_92x30dp.png
+
+-- cosas que faltan
+
+-dashboard.php     # Panel de usuario
+-pagina reservas
+-pagina animales
+-pagina itinerario
+-pagina conocer-mas
+
+-seccion admin
+        -dashboard -> para controlar todo
+        -pagina animales (agregar, modificar y borrar)
+        -pagina especies (agregar, modificar y borrar)
+        -pagina itinerario (agregar, modificar y borrar)
+        -pagina reservas (agregar, modificar y borrar)
+        -pagina usuarios (agregar usuarios normales y admin, modificar y borrar)
+
+.env
+.htaccess
+README.md
+

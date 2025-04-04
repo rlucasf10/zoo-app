@@ -1,0 +1,263 @@
+/* ==========================
+   RESET Y VARIABLES GLOBALES
+   ========================== */
+
+/* Reset de márgenes y padding */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Variables globales */
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #4caf50;
+  --background-color: #ffebb2;
+  --text-dark: #222;
+  --text-light: #fff;
+  --navbar-bg: #343a40;
+  --hover-color: #752c17;
+  --footer-bg: #2c3e50;
+  --button-radius: 25px;
+  --transition-duration: 0.3s;
+}
+
+/* ==========================
+   ESTILOS GENERALES
+   ========================== */
+
+body {
+  font-family: "Roboto", Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-dark);
+}
+
+/* ==========================
+   NAVBAR
+   ========================== */
+
+.navbar {
+  background-color: var(--navbar-bg);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#navbar-item {
+  display: flex;
+  gap: 50px;
+}
+
+.navbar-brand {
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+.navbar-nav .nav-link {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-light);
+  font-weight: bold;
+  transition: color var(--transition-duration);
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--primary-color);
+}
+
+/* Estilos del botón del menú móvil */
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler-icon {
+  filter: invert(1); /* Hace que el icono se vea blanco */
+}
+
+/* ==========================
+   BOTONES (Optimizado)
+   ========================== */
+
+.btn {
+  background-color: var(--primary-color);
+  color: var(--text-light);
+  padding: 10px 20px;
+  border-radius: var(--button-radius);
+  transition: background-color var(--transition-duration),
+    color var(--transition-duration);
+}
+
+.btn:hover {
+  background-color: var(--hover-color);
+  color: var(--text-light);
+}
+
+/* ==========================
+   ESTILOS PARA EL MENÚ DESPLEGABLE
+   ========================== */
+
+.dropdown-item:hover {
+  background-color: var(--hover-color);
+  color: #f8f9fa; /* Mejora el contraste */
+}
+
+/* ==========================
+   SECCIONES
+   ========================== */
+
+/* HERO SECTION */
+.hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../images/hero-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+
+#hero h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+#hero p {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* Secciones: ANIMALES, VISITANTES Y TESTIMONIOS */
+.animals,
+.visit,
+.testimonials {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.animals {
+  background-color: white;
+}
+
+.animals h2,
+.visit h2,
+.testimonials h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+/* Galería de animales */
+.gallery {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 0 20px;
+}
+
+.animal-item {
+  text-align: center;
+  flex: 1 1 250px;
+  max-width: 250px;
+}
+
+.animal-item img {
+  width: 100%;
+  border-radius: 10px;
+  height: auto;
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.animal-item img:hover {
+  transform: scale(1.05);
+}
+
+.animal-name {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+  margin-top: 5px;
+  transition: opacity 0.5s;
+}
+
+/* Sección de visitantes */
+.visit {
+  background-color: var(--background-color);
+}
+
+/* Sección de testimonios */
+.testimonials {
+  background-color: #e6f7ff;
+}
+
+.testimonial-item {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.testimonial-item p {
+  font-style: italic;
+}
+
+/* ==========================
+   FOOTER
+   ========================== */
+
+footer {
+  background-color: var(--footer-bg);
+  color: var(--text-light);
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 20px;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+footer nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+footer nav ul li {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+footer nav ul li a,
+footer p a {
+  color: var(--text-light);
+  text-decoration: none;
+  transition: color var(--transition-duration);
+}
+
+footer nav ul li a:hover,
+footer p a:hover {
+  color: #f39c12;
+}
+
+footer p {
+  margin: 10px 0 0;
+  font-size: 12px;
+}
