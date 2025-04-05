@@ -128,9 +128,12 @@ document.addEventListener('DOMContentLoaded', function () {
     ).map(checkbox => checkbox.nextElementSibling.textContent)
 
     if (!nombre || !duracion || puntosInteres.length === 0) {
-      alert(
+      const errorDiv = document.createElement('div')
+      errorDiv.className = 'alert alert-danger'
+      errorDiv.textContent =
         'Por favor, completa todos los campos y selecciona al menos un punto de interés.'
-      )
+      formItinerario.insertBefore(errorDiv, formItinerario.firstChild)
+      setTimeout(() => errorDiv.remove(), 5000)
       return
     }
 
@@ -145,51 +148,21 @@ document.addEventListener('DOMContentLoaded', function () {
     fetch('/zoo-app/views/itinerarios.php', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
+        'Content-Type': 'application/json'
       },
-      credentials: 'same-origin',
       body: JSON.stringify(datos)
     })
-      .then(response => {
-        console.log('Estado de la respuesta:', response.status)
-        console.log(
-          'Headers de la respuesta:',
-          Object.fromEntries(response.headers.entries())
-        )
-
-        return response.text().then(text => {
-          console.log('Respuesta del servidor:', text)
-          try {
-            return JSON.parse(text)
-          } catch (e) {
-            console.error('Error al parsear JSON:', e)
-            throw new Error('Error del servidor: ' + text)
-          }
-        })
-      })
-      .then(data => {
-        if (data.error) {
-          throw new Error(data.error)
-        }
-        alert('¡Itinerario creado con éxito!')
-        // Limpiar el formulario
-        document.getElementById('nombreItinerario').value = ''
-        document.getElementById('duracion').value = ''
-        document.querySelectorAll('.puntos-interes input').forEach(checkbox => {
-          checkbox.checked = false
-        })
-        actualizarVistaPreviaPersonalizada()
+      .then(response => response.text())
+      .then(html => {
+        document.body.innerHTML = html
       })
       .catch(error => {
-        console.error('Error completo:', error)
-        if (error.message === 'Failed to fetch') {
-          alert(
-            'Error de conexión. Por favor, verifica tu conexión a internet e intenta de nuevo.'
-          )
-        } else {
-          alert('Error al crear el itinerario: ' + error.message)
-        }
+        console.error('Error:', error)
+        const errorDiv = document.createElement('div')
+        errorDiv.className = 'alert alert-danger'
+        errorDiv.textContent = error.message
+        formItinerario.insertBefore(errorDiv, formItinerario.firstChild)
+        setTimeout(() => errorDiv.remove(), 5000)
       })
   }
 

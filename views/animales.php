@@ -425,3 +425,4 @@ require_once __DIR__ . '/plantillas/header.php';
 <script src="/zoo-app/assets/js/animales.js"></script>
 
 <?php require_once __DIR__ . '/plantillas/footer.php'; ?>
+<?php require_once __DIR__ . '/plantillas/footer.php'; ?>

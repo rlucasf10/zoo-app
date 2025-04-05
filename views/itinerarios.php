@@ -36,6 +36,14 @@ set_exception_handler('handleException');
 
 session_start();
 
+// Recuperar mensaje de la sesión si existe
+if (isset($_SESSION['mensaje'])) {
+    $mensaje = $_SESSION['mensaje'];
+    $tipo_mensaje = $_SESSION['tipo_mensaje'];
+    unset($_SESSION['mensaje']);
+    unset($_SESSION['tipo_mensaje']);
+}
+
 // Verificar si es una petición POST antes de incluir cualquier otro archivo
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
@@ -44,6 +52,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Verificar si el usuario está autenticado
         if (!isset($_SESSION['usuario_id'])) {
             throw new Exception('Usuario no autenticado');
+        }
+
+        // Verificar que el usuario exista en la base de datos
+        require_once __DIR__ . '/../config/sql/database.php';
+        $checkUserQuery = "SELECT id FROM usuarios WHERE id = :usuario_id";
+        $stmt = $conn->prepare($checkUserQuery);
+        $stmt->bindParam(':usuario_id', $_SESSION['usuario_id']);
+        $stmt->execute();
+
+        if ($stmt->rowCount() === 0) {
+            throw new Exception('Usuario no encontrado en la base de datos');
         }
 
         // Obtener los datos del cuerpo de la petición
@@ -77,19 +96,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['usuario_id']
             );
 
-            echo json_encode(['success' => true, 'message' => $resultado]);
+            $_SESSION['mensaje'] = "¡Itinerario creado con éxito!";
+            $_SESSION['tipo_mensaje'] = "success";
+            echo "<script>window.location.href = '" . $base_url . "/views/itinerarios.php';</script>";
+            exit();
         } catch (Exception $e) {
             error_log("Error al crear itinerario: " . $e->getMessage());
-            http_response_code(500);
-            echo json_encode(['error' => 'Error al crear el itinerario: ' . $e->getMessage()]);
+            $_SESSION['mensaje'] = "Error al crear el itinerario: " . $e->getMessage();
+            $_SESSION['tipo_mensaje'] = "error";
+            echo "<script>window.location.href = '" . $base_url . "/views/itinerarios.php';</script>";
+            exit();
         }
     } catch (Exception $e) {
         error_log("Error en itinerarios.php: " . $e->getMessage());
         error_log("Stack trace: " . $e->getTraceAsString());
-        http_response_code(500);
-        echo json_encode(['error' => $e->getMessage()]);
+        $_SESSION['mensaje'] = $e->getMessage();
+        $_SESSION['tipo_mensaje'] = "error";
+        echo "<script>window.location.href = '" . $base_url . "/views/itinerarios.php';</script>";
+        exit();
     }
-    exit;
 }
 
 // Si no es POST, incluir el header y mostrar la página
@@ -193,46 +218,60 @@ require_once __DIR__ . '/plantillas/header.php';
             <div class="row">
                 <div class="col-md-6">
                     <div class="formulario-itinerario">
-                        <form id="formItinerario">
-                            <div class="form-group">
-                                <label for="nombreItinerario">Nombre del Itinerario</label>
-                                <input type="text" class="form-control" id="nombreItinerario" required>
+                        <?php if (!isset($_SESSION['usuario_id'])): ?>
+                            <div class="alert alert-info">
+                                <p>Para crear un itinerario personalizado, necesitas <a
+                                        href="<?php echo $base_url; ?>/views/login_register/login.php">iniciar sesión</a> o
+                                    <a href="<?php echo $base_url; ?>/views/login_register/registro.php">registrarte</a>.
+                                </p>
                             </div>
-                            <div class="form-group">
-                                <label for="duracion">Duración Estimada</label>
-                                <select class="form-control" id="duracion" required>
-                                    <option value="1">1 hora</option>
-                                    <option value="2">2 horas</option>
-                                    <option value="3">3 horas</option>
-                                    <option value="4">4 horas</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Puntos de Interés</label>
-                                <div class="puntos-interes">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="mamiferos"
-                                            value="mamiferos">
-                                        <label class="custom-control-label" for="mamiferos">Mamíferos</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="aves" value="aves">
-                                        <label class="custom-control-label" for="aves">Aves</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="reptiles"
-                                            value="reptiles">
-                                        <label class="custom-control-label" for="reptiles">Reptiles</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="acuaticos"
-                                            value="acuaticos">
-                                        <label class="custom-control-label" for="acuaticos">Acuáticos</label>
+                        <?php else: ?>
+                            <?php if (isset($mensaje)): ?>
+                                <div class="alert alert-<?php echo $tipo_mensaje === 'success' ? 'success' : 'danger'; ?>">
+                                    <?php echo $mensaje; ?>
+                                </div>
+                            <?php endif; ?>
+                            <form id="formItinerario">
+                                <div class="form-group">
+                                    <label for="nombreItinerario">Nombre del Itinerario</label>
+                                    <input type="text" class="form-control" id="nombreItinerario" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="duracion">Duración Estimada</label>
+                                    <select class="form-control" id="duracion" required>
+                                        <option value="1">1 hora</option>
+                                        <option value="2">2 horas</option>
+                                        <option value="3">3 horas</option>
+                                        <option value="4">4 horas</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Puntos de Interés</label>
+                                    <div class="puntos-interes">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="mamiferos"
+                                                value="mamiferos">
+                                            <label class="custom-control-label" for="mamiferos">Mamíferos</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="aves" value="aves">
+                                            <label class="custom-control-label" for="aves">Aves</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="reptiles"
+                                                value="reptiles">
+                                            <label class="custom-control-label" for="reptiles">Reptiles</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="acuaticos"
+                                                value="acuaticos">
+                                            <label class="custom-control-label" for="acuaticos">Acuáticos</label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Crear Itinerario</button>
-                        </form>
+                                <button type="submit" class="btn btn-primary">Crear Itinerario</button>
+                            </form>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -280,5 +319,9 @@ require_once __DIR__ . '/plantillas/header.php';
 
 <!-- Agregar el JavaScript específico de la página -->
 <script src="/zoo-app/assets/js/itinerarios.js"></script>
+
+<?php require_once __DIR__ . '/plantillas/footer.php'; ?>
+<!-- Agregar el JavaScript específico de la página -->
+<script src="<?php echo $base_url; ?>/assets/js/itinerarios.js"></script>
 
 <?php require_once __DIR__ . '/plantillas/footer.php'; ?>

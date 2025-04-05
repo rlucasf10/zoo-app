@@ -179,5 +179,18 @@ class ItinerarioController
             return [];
         }
     }
+
+    public function obtenerItinerarios()
+    {
+        try {
+            if (!isset($_SESSION['usuario_id'])) {
+                return [];
+            }
+            return $this->obtenerItinerariosUsuario($_SESSION['usuario_id']);
+        } catch (Exception $e) {
+            error_log("Error al obtener itinerarios: " . $e->getMessage());
+            return [];
+        }
+    }
 }
 ?>

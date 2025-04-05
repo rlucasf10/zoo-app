@@ -9,7 +9,7 @@ require_once __DIR__ . '/views/plantillas/header.php';
         <div class="hero-content">
             <h1>Bienvenidos a Zoo App</h1>
             <p>Un mundo lleno de maravillas naturales y animales fascinantes te espera. ¡Descúbrelo con nosotros!</p>
-            <a href="#seccion-mas" class="btn btn-conocer-mas">Conocer más</a>
+            <a href="<?php echo $base_url; ?>/views/conocer-mas.php" class="btn btn-conocer-mas">Conocer más</a>
         </div>
     </section>
 
@@ -26,24 +26,24 @@ require_once __DIR__ . '/views/plantillas/header.php';
         <h2>Nuestros Animales</h2>
         <div class="gallery" id="animal-gallery">
             <div class="animal-item">
-                <img src="/zoo-app/assets/images/bengala.jpeg" alt="Tigre de Bengala">
+                <img src="<?php echo $base_url; ?>/assets/images/bengala.jpeg" alt="Tigre de Bengala">
                 <p class="animal-name">Tigre de Bengala</p>
             </div>
             <div class="animal-item">
-                <img src="/zoo-app/assets/images/bufalo.jpeg" alt="Búfalo">
+                <img src="<?php echo $base_url; ?>/assets/images/bufalo.jpeg" alt="Búfalo">
                 <p class="animal-name">Búfalo</p>
             </div>
             <div class="animal-item">
-                <img src="/zoo-app/assets/images/cebra.jpeg" alt="Cebra">
+                <img src="<?php echo $base_url; ?>/assets/images/cebra.jpeg" alt="Cebra">
                 <p class="animal-name">Cebra</p>
             </div>
             <div class="animal-item">
-                <img src="/zoo-app/assets/images/elefante.jpeg" alt="Elefante">
+                <img src="<?php echo $base_url; ?>/assets/images/elefante.jpeg" alt="Elefante">
                 <p class="animal-name">Elefante</p>
             </div>
         </div>
         <div class="ver-animales">
-            <a href="/zoo-app/views/animales.php" class="btn">Ver más animales</a>
+            <a href="<?php echo $base_url; ?>/views/animales.php" class="btn">Ver más animales</a>
         </div>
     </section>
 
@@ -51,7 +51,7 @@ require_once __DIR__ . '/views/plantillas/header.php';
     <section id="visit" class="visit">
         <h2>Planifica tu Visita</h2>
         <p>Consulta nuestros horarios de apertura y compra tus entradas online para una experiencia sin igual.</p>
-        <a href="/zoo-app/views/entradas.php" class="btn">Comprar Entradas</a>
+        <a href="<?php echo $base_url; ?>/views/entradas.php" class="btn">Comprar Entradas</a>
     </section>
 
     <!-- Testimonios -->
