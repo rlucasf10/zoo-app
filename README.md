@@ -31,70 +31,80 @@ ZooApp es una aplicación web moderna diseñada para la gestión eficiente de zo
 - Mod_rewrite habilitado
 
 ## 📂 Estructura del Proyecto
+
 ```
-/zoo-app
-├── /assets                 # Recursos estáticos
-│   ├── /css               # Estilos CSS
-│   │   ├── style.css      # Estilos principales
-│   │   ├── login_register.css  # Estilos de login y registro
-│   │   └── dashboard.css  # Estilos del panel de control (vacío)
-│   ├── /js                # Scripts JavaScript
-│   │   └── script.js      # Script principal
-│   └── /images            # Imágenes públicas
-│       ├── hero-bg.jpg    # Imagen de fondo del héroe
-│       ├── hero-bg.webp   # Versión webp de la imagen de fondo
-│       ├── tigre.png      # Imagen del tigre
-│       ├── oso.png        # Imagen del oso
-│       ├── loro.png       # Imagen del loro
-│       └── *.jpeg         # Imágenes de animales (bengala, jirafa, tigre, mono, león, cebra, búfalo, elefante)
-├── /config                # Configuraciones
-│   ├── database.php       # Configuración de la base de datos
-│   ├── zoo-app.sql        # Esquema de la base de datos
-│   ├── checks.sql         # Scripts de verificación
-│   ├── zoo-app.mwb        # Modelo de base de datos
-│   ├── zoo-app.png        # Diagrama de la base de datos
-│   └── relacionesBD.txt   # Documentación de relaciones
-├── /controllers           # Controladores de la aplicación
+zoo-app/
+├── assets/                 # Recursos estáticos
+│   ├── css/               # Archivos CSS
+│   │   ├── style.css      # Estilos globales
+│   │   ├── itinerarios.css
+│   │   ├── reservas.css
+│   │   ├── animales.css
+│   │   ├── conocer-mas.css
+│   │   ├── login_register.css
+│   │   └── dashboard.css
+│   ├── js/                # Archivos JavaScript
+│   │   ├── script.js      # Script principal
+│   │   ├── itinerarios.js
+│   │   └── reservas.js
+│   └── images/            # Imágenes del proyecto
+├── config/                # Configuraciones
+│   └── sql/              # Scripts SQL y configuración de base de datos
+│       ├── zoo-app.sql    # Script principal de la base de datos
+│       ├── select_delete.sql
+│       ├── inserts.sql    # Datos iniciales
+│       ├── database.php   # Configuración de conexión
+│       ├── zoo-app.mwb    # Modelo Workbench
+│       ├── zoo-app.png    # Diagrama de la base de datos
+│       └── relacionesBD.txt
+├── controllers/           # Controladores de la aplicación
 │   ├── AdminController.php
 │   ├── AnimalController.php
 │   ├── AuthController.php
 │   ├── EspeciesController.php
+│   ├── GoogleAuthController.php
 │   ├── ItinerarioController.php
 │   ├── ReservaController.php
 │   └── test_*.php         # Archivos de prueba
-├── /docs                  # Documentación
-│   └── estructura.txt     # Estructura del proyecto
-├── /models                # Modelos de la base de datos
-│   ├── animal.php         # Modelo de animales (vacío)
-│   ├── especie.php        # Modelo de especies (vacío)
-│   ├── itinerario.php     # Modelo de itinerarios (vacío)
-│   ├── reserva.php        # Modelo de reservas (vacío)
-│   └── usuario.php        # Modelo de usuarios (vacío)
-├── /scripts               # Scripts de utilidad
-│   └── subir_github.py    # Script para subir a GitHub
-├── /views                 # Vistas de la aplicación
-│   ├── /admin            # Vistas del panel de administración
-│   │   ├── dashboard.php  # Panel de control (vacío)
-│   │   ├── reservas.php   # Gestión de reservas (vacío)
-│   │   ├── itinerario.php # Gestión de itinerarios (vacío)
-│   │   ├── especies.php   # Gestión de especies (vacío)
-│   │   ├── animales.php   # Gestión de animales (vacío)
-│   │   └── usuarios.php   # Gestión de usuarios (vacío)
-│   ├── /plantillas       # Plantillas reutilizables
-│   │   ├── header.php     # Encabezado común
-│   │   └── footer.php     # Pie de página común
-│   ├── animales.php      # Vista de animales (vacío)
-│   ├── contacto.php      # Página de contacto
-│   ├── dashboard.php     # Panel de control (vacío)
-│   ├── itinerario.php    # Vista de itinerarios (vacío)
-│   ├── login.php         # Vista de inicio de sesión
-│   ├── politica_privacidad.php
-│   ├── register.php      # Vista de registro
-│   ├── reservas.php      # Vista de reservas (vacío)
-│   └── terminos_de_servicio.php
-├── index.php             # Punto de entrada principal
-├── requirements.txt      # Requisitos del sistema
-└── README.md            # Documentación del proyecto
+├── doc/                   # Documentación del proyecto
+│   ├── estructura.txt     # Estructura detallada del proyecto
+│   └── requirements.txt   # Requisitos del sistema
+├── models/                # Modelos de datos
+│   ├── animal.php
+│   ├── especie.php
+│   ├── itinerario.php
+│   ├── reserva.php
+│   └── usuario.php
+├── scripts/              # Scripts de utilidad
+│   └── subir_github.py   # Script para subir a GitHub
+├── vendor/               # Dependencias de Composer
+├── views/                # Vistas de la aplicación
+│   ├── admin/           # Vistas del panel de administración
+│   │   ├── dashboard.php
+│   │   ├── reservas.php
+│   │   ├── itinerarios.php
+│   │   ├── especies.php
+│   │   ├── animales.php
+│   │   └── usuarios.php
+│   ├── login_register/  # Vistas de autenticación
+│   │   ├── login.php
+│   │   └── registro.php
+│   ├── plantillas/      # Plantillas reutilizables
+│   │   ├── header.php
+│   │   └── footer.php
+│   ├── footer/          # Componentes del pie de página
+│   │   ├── contacto.php
+│   │   ├── politica_privacidad.php
+│   │   └── terminos_de_servicio.php
+│   ├── animales.php
+│   ├── conocer-mas.php
+│   ├── dashboard.php
+│   ├── itinerarios.php
+│   └── reservas.php
+├── .env                  # Variables de entorno
+├── .gitignore           # Archivos ignorados por Git
+├── index.php            # Punto de entrada principal
+└── README.md            # Documentación principal
 ```
 
 ## 📦 Requisitos del Sistema
@@ -128,7 +138,7 @@ Para instalar todos los requisitos, consulta el archivo `requirements.txt` en la
 ## 🔧 Instalación
 1. Clonar el repositorio:
 ```bash
-git clone https://github.com/tu-usuario/zoo-app.git
+git clone https://github.com/rlucasf10/zoo-app.git
 cd zoo-app
 ```
 
