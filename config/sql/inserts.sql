@@ -1,3 +1,7 @@
+-- USUARIO ADMIN
+INSERT INTO usuarios (nombre, email, password, es_admin)
+VALUES ('Admin', 'admin@gmail.com', '$2b$12$lmPK8ptLmtZvORcXNPNd9uI/T5zusmIU2JI828S5yltvjD94.Tjgu', 1);
+
 -- Script para insertar especies y animales en la base de datos
 -- Primero insertamos las especies
 INSERT INTO especies (nombre_especie)
@@ -17,6 +21,7 @@ VALUES ('Panthera tigris tigris'),
     ('Ailuropoda melanoleuca'),
     ('Phascolarctos cinereus'),
     ('Macropus rufus');
+    
 -- Luego insertamos los animales
 INSERT INTO animales (
         nombre_animal,
