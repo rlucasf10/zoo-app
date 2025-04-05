@@ -292,8 +292,13 @@ try {
         document.getElementById('precio_total').value = total;
     }
 
-    // Actualizar resumen cuando cambie la cantidad de personas
-    document.getElementById('cantidad_personas').addEventListener('input', actualizarResumen);
+    // Esperar a que el DOM esté cargado
+    document.addEventListener('DOMContentLoaded', function () {
+        const cantidadPersonasInput = document.getElementById('cantidad_personas');
+        if (cantidadPersonasInput) {
+            cantidadPersonasInput.addEventListener('input', actualizarResumen);
+        }
+    });
 </script>
 
 <?php require_once __DIR__ . '/plantillas/footer.php'; ?>

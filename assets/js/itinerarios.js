@@ -43,6 +43,8 @@ document.addEventListener('DOMContentLoaded', function () {
   // Función para mostrar la vista previa de una ruta predefinida
   function mostrarVistaPreviaRuta (ruta) {
     const vistaPrevia = document.getElementById('vistaPrevia')
+    if (!vistaPrevia) return
+
     const datosRuta = rutasPredefinidas[ruta]
 
     let html = `
@@ -73,13 +75,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Función para actualizar la vista previa del itinerario personalizado
   function actualizarVistaPreviaPersonalizada () {
-    const nombre = document.getElementById('nombreItinerario').value
-    const duracion = document.getElementById('duracion').value
+    const nombreInput = document.getElementById('nombreItinerario')
+    const duracionInput = document.getElementById('duracion')
+    const vistaPrevia = document.getElementById('vistaPrevia')
+
+    if (!vistaPrevia) return
+    if (!nombreInput || !duracionInput || !vistaPrevia) return
+
+    const nombre = nombreInput.value
+    const duracion = duracionInput.value
     const puntosInteres = Array.from(
       document.querySelectorAll('.puntos-interes input:checked')
     ).map(checkbox => checkbox.nextElementSibling.textContent)
-
-    const vistaPrevia = document.getElementById('vistaPrevia')
 
     if (!nombre) {
       vistaPrevia.innerHTML =
@@ -109,13 +116,20 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Eventos para actualizar la vista previa en tiempo real
-  document
-    .getElementById('nombreItinerario')
-    .addEventListener('input', actualizarVistaPreviaPersonalizada)
-  document
-    .getElementById('duracion')
-    .addEventListener('change', actualizarVistaPreviaPersonalizada)
-  document.querySelectorAll('.puntos-interes input').forEach(checkbox => {
+  const nombreInput = document.getElementById('nombreItinerario')
+  const duracionInput = document.getElementById('duracion')
+  const puntosInteresInputs = document.querySelectorAll('.puntos-interes input')
+  const formItinerario = document.getElementById('formItinerario')
+
+  if (nombreInput) {
+    nombreInput.addEventListener('input', actualizarVistaPreviaPersonalizada)
+  }
+
+  if (duracionInput) {
+    duracionInput.addEventListener('change', actualizarVistaPreviaPersonalizada)
+  }
+
+  puntosInteresInputs.forEach(checkbox => {
     checkbox.addEventListener('change', actualizarVistaPreviaPersonalizada)
   })
 
@@ -183,6 +197,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   // Manejo del formulario
-  const formItinerario = document.getElementById('formItinerario')
-  formItinerario.addEventListener('submit', guardarItinerarioPersonalizado)
+  if (formItinerario) {
+    formItinerario.addEventListener('submit', guardarItinerarioPersonalizado)
+  }
 })

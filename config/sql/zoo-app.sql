@@ -50,7 +50,7 @@ CREATE TABLE animales (
     SET NULL
 );
 -- Tabla de reservas
-// ... existing code ...
+
 CREATE TABLE IF NOT EXISTS reservas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
