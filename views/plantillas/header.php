@@ -44,13 +44,13 @@ $base_url = '/zoo-app';
                             <a class="nav-link" href="<?php echo $base_url; ?>/index.php">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo $base_url; ?>/views/reservas.php">Reservas</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="<?php echo $base_url; ?>/views/animales.php">Animales</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo $base_url; ?>/views/itinerarios.php">Itinerario</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo $base_url; ?>/views/reservas.php">Reservas</a>
                         </li>
                     </ul>
 
