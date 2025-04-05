@@ -4,7 +4,7 @@
     url("/zoo-app/assets/images/hero-itinerarios.webp");
   background-size: cover;
   background-position: center;
-  height: 400px;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;

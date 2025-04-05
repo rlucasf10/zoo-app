@@ -37,11 +37,11 @@ set_exception_handler('handleException');
 session_start();
 
 // Recuperar mensaje de la sesión si existe
-if (isset($_SESSION['mensaje'])) {
-    $mensaje = $_SESSION['mensaje'];
-    $tipo_mensaje = $_SESSION['tipo_mensaje'];
-    unset($_SESSION['mensaje']);
-    unset($_SESSION['tipo_mensaje']);
+if (isset($_SESSION['mensaje_itinerario'])) {
+    $mensaje = $_SESSION['mensaje_itinerario'];
+    $tipo_mensaje = $_SESSION['tipo_mensaje_itinerario'];
+    unset($_SESSION['mensaje_itinerario']);
+    unset($_SESSION['tipo_mensaje_itinerario']);
 }
 
 // Verificar si es una petición POST antes de incluir cualquier otro archivo
@@ -96,23 +96,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['usuario_id']
             );
 
-            $_SESSION['mensaje'] = "¡Itinerario creado con éxito!";
-            $_SESSION['tipo_mensaje'] = "success";
-            echo "<script>window.location.href = '" . $base_url . "/views/itinerarios.php';</script>";
+            $_SESSION['mensaje_itinerario'] = "¡Itinerario creado con éxito!";
+            $_SESSION['tipo_mensaje_itinerario'] = "success";
+            echo json_encode(['success' => true, 'message' => "¡Itinerario creado con éxito!"]);
             exit();
         } catch (Exception $e) {
             error_log("Error al crear itinerario: " . $e->getMessage());
-            $_SESSION['mensaje'] = "Error al crear el itinerario: " . $e->getMessage();
-            $_SESSION['tipo_mensaje'] = "error";
-            echo "<script>window.location.href = '" . $base_url . "/views/itinerarios.php';</script>";
+            $_SESSION['mensaje_itinerario'] = "Error al crear el itinerario: " . $e->getMessage();
+            $_SESSION['tipo_mensaje_itinerario'] = "error";
+            http_response_code(500);
+            echo json_encode(['error' => 'Error al crear el itinerario: ' . $e->getMessage()]);
             exit();
         }
     } catch (Exception $e) {
         error_log("Error en itinerarios.php: " . $e->getMessage());
         error_log("Stack trace: " . $e->getTraceAsString());
-        $_SESSION['mensaje'] = $e->getMessage();
-        $_SESSION['tipo_mensaje'] = "error";
-        echo "<script>window.location.href = '" . $base_url . "/views/itinerarios.php';</script>";
+        $_SESSION['mensaje_itinerario'] = $e->getMessage();
+        $_SESSION['tipo_mensaje_itinerario'] = "error";
+        http_response_code(500);
+        echo json_encode(['error' => $e->getMessage()]);
         exit();
     }
 }
@@ -123,7 +125,7 @@ require_once __DIR__ . '/plantillas/header.php';
 ?>
 
 <!-- Agregar el CSS específico de la página -->
-<link rel="stylesheet" href="/zoo-app/assets/css/itinerarios.css">
+<link rel="stylesheet" href="<?php echo $base_url; ?>/assets/css/itinerarios.css">
 
 <main>
     <!-- Sección Hero de Itinerarios -->
@@ -317,10 +319,6 @@ require_once __DIR__ . '/plantillas/header.php';
     </section>
 </main>
 
-<!-- Agregar el JavaScript específico de la página -->
-<script src="/zoo-app/assets/js/itinerarios.js"></script>
-
-<?php require_once __DIR__ . '/plantillas/footer.php'; ?>
 <!-- Agregar el JavaScript específico de la página -->
 <script src="<?php echo $base_url; ?>/assets/js/itinerarios.js"></script>
 

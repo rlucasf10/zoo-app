@@ -152,9 +152,25 @@ document.addEventListener('DOMContentLoaded', function () {
       },
       body: JSON.stringify(datos)
     })
-      .then(response => response.text())
-      .then(html => {
-        document.body.innerHTML = html
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Crear y mostrar el mensaje de éxito
+          const successDiv = document.createElement('div')
+          successDiv.className = 'alert alert-success'
+          successDiv.textContent = data.message
+          formItinerario.insertBefore(successDiv, formItinerario.firstChild)
+
+          // Limpiar el formulario
+          formItinerario.reset()
+
+          // Eliminar el mensaje después de 5 segundos
+          setTimeout(() => {
+            successDiv.remove()
+          }, 5000)
+        } else {
+          throw new Error(data.error || 'Error al crear el itinerario')
+        }
       })
       .catch(error => {
         console.error('Error:', error)

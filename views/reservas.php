@@ -36,6 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $usuario_id = $_SESSION['usuario_id'];
         $itinerario_id = !empty($_POST['itinerario_id']) ? $_POST['itinerario_id'] : null;
         $animal_id = !empty($_POST['animal_id']) ? $_POST['animal_id'] : null;
+        $tipo_entrada = $_POST['tipo_entrada'];
+        $precio_total = $_POST['precio_total'];
 
         // Verificar conexión a la base de datos
         if (!$conn) {
@@ -43,29 +45,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Insertar la reserva
-        $stmt = $conn->prepare("INSERT INTO reservas (usuario_id, itinerario_id, animal_id, fecha_visita, cantidad_personas) VALUES (?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO reservas (usuario_id, itinerario_id, animal_id, fecha_visita, cantidad_personas, tipo_entrada, precio_total) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
-        if (!$stmt->execute([$usuario_id, $itinerario_id, $animal_id, $fecha_visita, $cantidad_personas])) {
+        if (!$stmt->execute([$usuario_id, $itinerario_id, $animal_id, $fecha_visita, $cantidad_personas, $tipo_entrada, $precio_total])) {
             throw new Exception("Error al insertar la reserva en la base de datos.");
         }
 
-        $_SESSION['mensaje'] = "¡Reserva realizada con éxito!";
-        $_SESSION['tipo_mensaje'] = "success";
+        $_SESSION['mensaje_reserva'] = "¡Reserva realizada con éxito!";
+        $_SESSION['tipo_mensaje_reserva'] = "success";
         echo "<script>window.location.href = '" . $base_url . "/views/reservas.php';</script>";
         exit();
     } catch (Exception $e) {
-        $_SESSION['mensaje'] = $e->getMessage();
-        $_SESSION['tipo_mensaje'] = "error";
+        $_SESSION['mensaje_reserva'] = $e->getMessage();
+        $_SESSION['tipo_mensaje_reserva'] = "error";
         error_log("Error en reserva: " . $e->getMessage());
     }
 }
 
 // Recuperar mensaje de la sesión si existe
-if (isset($_SESSION['mensaje'])) {
-    $mensaje = $_SESSION['mensaje'];
-    $tipo_mensaje = $_SESSION['tipo_mensaje'];
-    unset($_SESSION['mensaje']);
-    unset($_SESSION['tipo_mensaje']);
+if (isset($_SESSION['mensaje_reserva'])) {
+    $mensaje = $_SESSION['mensaje_reserva'];
+    $tipo_mensaje = $_SESSION['tipo_mensaje_reserva'];
+    unset($_SESSION['mensaje_reserva']);
+    unset($_SESSION['tipo_mensaje_reserva']);
 }
 
 // Obtener itinerarios disponibles
@@ -180,6 +182,8 @@ try {
                 <?php endif; ?>
 
                 <form method="POST" action="" id="formularioReserva">
+                    <input type="hidden" name="tipo_entrada" id="tipo_entrada">
+                    <input type="hidden" name="precio_total" id="precio_total">
                     <div class="form-group">
                         <label for="fecha_visita">Fecha de Visita</label>
                         <input type="date" class="form-control" id="fecha_visita" name="fecha_visita" required
@@ -267,6 +271,7 @@ try {
                 precioBase = 25;
                 break;
         }
+        document.getElementById('tipo_entrada').value = tipo;
         actualizarResumen();
     }
 
@@ -281,7 +286,10 @@ try {
         document.getElementById('tipoEntrada').textContent = tipoEntradaMap[tipoSeleccionado] || '-';
         document.getElementById('precioPersona').textContent = precioBase ? `€${precioBase}` : '-';
         document.getElementById('numPersonas').textContent = cantidadPersonas || '-';
-        document.getElementById('total').textContent = precioBase && cantidadPersonas ? `€${precioBase * cantidadPersonas}` : '-';
+
+        const total = precioBase && cantidadPersonas ? precioBase * cantidadPersonas : 0;
+        document.getElementById('total').textContent = total ? `€${total}` : '-';
+        document.getElementById('precio_total').value = total;
     }
 
     // Actualizar resumen cuando cambie la cantidad de personas
