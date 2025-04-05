@@ -1,22 +1,10 @@
 # Archivos de entorno
 .env
-config/sql/.env
 
 # Archivos de dependencias
 /vendor/
-/node_modules/
 
-# Archivos de sistema
-.DS_Store
-Thumbs.db
+# Archivos de composer
 
-# Archivos de IDE
-.idea/
-.vscode/
-*.sublime-project
-*.sublime-workspace
-
-/config/sql/.env
 /config/composer.json
 /config/composer.lock
-
