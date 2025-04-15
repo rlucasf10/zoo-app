@@ -30,7 +30,7 @@ require_once __DIR__ . '/../../../config/sql/database.php';
 
 // Obtener lista de usuarios para el select
 try {
-    $stmt = $conn->query("SELECT id, nombre FROM usuarios ORDER BY nombre");
+    $stmt = $conn->query("SELECT id, nombre_completo FROM usuarios ORDER BY nombre_completo");
     $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     error_log("Error al obtener usuarios: " . $e->getMessage());
@@ -183,7 +183,7 @@ require_once __DIR__ . '/../../plantillas/header.php';
                     <option value="">Seleccione un usuario (opcional)</option>
                     <?php foreach ($usuarios as $usuario): ?>
                         <option value="<?php echo $usuario['id']; ?>">
-                            <?php echo htmlspecialchars($usuario['nombre']); ?>
+                            <?php echo htmlspecialchars($usuario['nombre_completo']); ?>
                         </option>
                     <?php endforeach; ?>
                 </select>

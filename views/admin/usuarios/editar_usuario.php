@@ -30,7 +30,13 @@ require_once __DIR__ . '/../../../config/sql/database.php';
 
 $mensaje = '';
 $tipo_mensaje = '';
-$usuario = null;
+$usuario = [
+    'id' => 0,
+    'nombre_completo' => '',
+    'nombre_usuario' => '',
+    'email' => '',
+    'es_admin' => 0
+];
 
 // Verificar si se proporcionó un ID
 if (!isset($_GET['id'])) {
@@ -40,20 +46,34 @@ if (!isset($_GET['id'])) {
 }
 
 $usuario_id = $_GET['id'];
+error_log("Editar Usuario - ID del usuario a editar: " . $usuario_id);
+error_log("Editar Usuario - ID del usuario en sesión: " . $_SESSION['usuario_id']);
 
 // Obtener datos del usuario
 try {
-    $stmt = $conn->prepare("SELECT id, nombre_completo, nombre_usuario, email, es_admin FROM usuarios WHERE id = ?");
-    $stmt->execute([$usuario_id]);
-    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+    error_log("Editar Usuario - Iniciando consulta para ID: " . $usuario_id);
     
-    if (!$usuario) {
-        error_log("Editar Usuario - Usuario no encontrado");
+    // Consulta SQL para obtener los datos del usuario
+    $stmt = $conn->prepare("SELECT nombre_completo, nombre_usuario, email, es_admin FROM usuarios WHERE id = ?");
+    $stmt->execute([$usuario_id]);
+    $datos_usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    if (!$datos_usuario) {
+        error_log("Editar Usuario - Usuario no encontrado con ID: " . $usuario_id);
+        $_SESSION['error'] = "Usuario no encontrado";
         header("Location: " . BASE_URL . "/views/admin/usuarios/ver_usuarios.php");
         exit();
     }
+    
+    error_log("Editar Usuario - Datos obtenidos para ID " . $usuario_id . ":");
+    error_log("nombre_completo: " . $datos_usuario['nombre_completo']);
+    error_log("nombre_usuario: " . $datos_usuario['nombre_usuario']);
+    error_log("email: " . $datos_usuario['email']);
+    error_log("es_admin: " . $datos_usuario['es_admin']);
+    
 } catch (PDOException $e) {
     error_log("Error al obtener datos del usuario: " . $e->getMessage());
+    $_SESSION['error'] = "Error al obtener los datos del usuario";
     header("Location: " . BASE_URL . "/views/admin/usuarios/ver_usuarios.php");
     exit();
 }
@@ -174,19 +194,19 @@ require_once __DIR__ . '/../../plantillas/header.php';
             <div class="form-group">
                 <label for="nombre_completo">Nombre Completo</label>
                 <input type="text" id="nombre_completo" name="nombre_completo" class="form-control" 
-                       value="<?php echo htmlspecialchars($usuario['nombre_completo']); ?>" required autocomplete="name">
+                       value="<?php echo htmlspecialchars($datos_usuario['nombre_completo'] ?? ''); ?>" required autocomplete="name">
             </div>
 
             <div class="form-group">
                 <label for="nombre_usuario">Nombre de Usuario</label>
                 <input type="text" id="nombre_usuario" name="nombre_usuario" class="form-control" 
-                       value="<?php echo htmlspecialchars($usuario['nombre_usuario']); ?>" required autocomplete="username">
+                       value="<?php echo htmlspecialchars($datos_usuario['nombre_usuario'] ?? ''); ?>" required autocomplete="username">
             </div>
 
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" class="form-control" 
-                       value="<?php echo htmlspecialchars($usuario['email']); ?>" required autocomplete="email">
+                       value="<?php echo htmlspecialchars($datos_usuario['email'] ?? ''); ?>" required autocomplete="email">
             </div>
 
             <div class="form-group">
@@ -209,7 +229,7 @@ require_once __DIR__ . '/../../plantillas/header.php';
 
             <div class="form-check">
                 <input type="checkbox" id="es_admin" name="es_admin" class="form-check-input" 
-                       <?php echo $usuario['es_admin'] ? 'checked' : ''; ?>>
+                       <?php echo (isset($datos_usuario['es_admin']) && $datos_usuario['es_admin']) ? 'checked' : ''; ?>>
                 <label for="es_admin" class="form-check-label">Usuario Administrador</label>
             </div>
 

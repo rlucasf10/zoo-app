@@ -127,7 +127,7 @@
 /* Estilos específicos solo para los botones de acciones en la tabla */
 .reservas-table .action-buttons .btn-action,
 .reservas-table-container .action-buttons .btn-action {
-  color:black;
+  color: black;
   width: 35px;
   height: 35px;
   display: flex;
@@ -208,4 +208,19 @@
   font-family: "Roboto", Arial, sans-serif;
   font-weight: 400;
   line-height: 1.5;
+}
+
+/* Estilos para asegurar que el footer esté al final de la página */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex-shrink: 0;
 }

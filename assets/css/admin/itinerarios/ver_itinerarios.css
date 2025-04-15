@@ -1,7 +1,23 @@
+/* Estilos generales */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .ver-itinerarios-container {
+  flex: 1 0 auto;
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .ver-itinerarios-header {
@@ -191,4 +207,24 @@
 .itinerarios-table .action-buttons .btn-action i,
 .itinerarios-table-container .action-buttons .btn-action i {
   font-size: 14px;
+}
+
+/* Estilos del footer */
+footer {
+  flex-shrink: 0;
+  background-color: var(--footer-bg);
+  color: white;
+  padding: 2rem 0;
+  margin-top: auto;
+}
+
+/* Estilos para asegurar que el footer esté al final de la página */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1 0 auto;
 }

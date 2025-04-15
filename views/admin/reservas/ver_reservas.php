@@ -31,7 +31,7 @@ require_once __DIR__ . '/../../../config/sql/database.php';
 // Obtener todas las reservas con información del usuario
 try {
     $stmt = $conn->query("
-        SELECT r.*, u.nombre as nombre_usuario, u.email as email_usuario
+        SELECT r.*, u.nombre_completo as nombre_usuario, u.email as email_usuario
         FROM reservas r
         JOIN usuarios u ON r.usuario_id = u.id
         ORDER BY r.fecha_visita DESC

@@ -60,7 +60,7 @@ try {
                i.duracion,
                i.puntos_interes,
                i.fecha_creacion,
-               u.nombre as nombre_usuario,
+               u.nombre_completo as nombre_usuario,
                (SELECT COUNT(DISTINCT r.id) FROM reservas r WHERE r.itinerario_id = i.id) as total_reservas
         FROM itinerarios i
         LEFT JOIN usuarios u ON i.usuario_id = u.id

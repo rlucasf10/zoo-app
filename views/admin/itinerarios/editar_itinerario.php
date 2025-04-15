@@ -77,7 +77,7 @@ try {
     }
 
     // Obtener todos los usuarios para el selector
-    $stmt = $conn->query("SELECT id, nombre FROM usuarios ORDER BY nombre");
+    $stmt = $conn->query("SELECT id, nombre_completo FROM usuarios ORDER BY nombre_completo");
     $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 } catch (PDOException $e) {
@@ -221,7 +221,7 @@ require_once __DIR__ . '/../../plantillas/header.php';
                     <option value="">Seleccione un usuario (opcional)</option>
                     <?php foreach ($usuarios as $usuario): ?>
                         <option value="<?php echo $usuario['id']; ?>" <?php echo $usuario['id'] == $itinerario['usuario_id'] ? 'selected' : ''; ?>>
-                            <?php echo htmlspecialchars($usuario['nombre']); ?>
+                            <?php echo htmlspecialchars($usuario['nombre_completo']); ?>
                         </option>
                     <?php endforeach; ?>
                 </select>

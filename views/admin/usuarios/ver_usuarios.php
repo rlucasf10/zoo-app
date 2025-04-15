@@ -136,7 +136,3 @@ require_once __DIR__ . '/../../plantillas/header.php';
         }
     });
 </script>
-
-</body>
-
-</html>

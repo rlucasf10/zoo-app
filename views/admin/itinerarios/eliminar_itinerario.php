@@ -40,7 +40,7 @@ $itinerario_id = $_GET['id'];
 // Obtener información del itinerario
 try {
     $stmt = $conn->prepare("
-        SELECT i.*, u.nombre as nombre_usuario, u.email as email_usuario,
+        SELECT i.*, u.nombre_completo as nombre_usuario, u.email as email_usuario,
                COUNT(DISTINCT r.id) as total_reservas
         FROM itinerarios i
         LEFT JOIN usuarios u ON i.usuario_id = u.id

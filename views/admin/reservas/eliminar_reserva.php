@@ -41,7 +41,7 @@ $reserva_id = $_GET['id'];
 // Obtener información de la reserva
 try {
     $stmt = $conn->prepare("
-        SELECT r.*, u.nombre as nombre_usuario, u.email as email_usuario,
+        SELECT r.*, u.nombre_completo as nombre_usuario, u.email as email_usuario,
                i.nombre as nombre_itinerario, a.nombre_animal
         FROM reservas r
         JOIN usuarios u ON r.usuario_id = u.id

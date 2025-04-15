@@ -42,7 +42,7 @@ $reserva_id = $_GET['id'];
 try {
     $stmt = $conn->prepare("
         SELECT r.*, 
-               u.nombre as nombre_usuario,
+               u.nombre_completo as nombre_usuario,
                i.nombre as nombre_itinerario,
                a.nombre_animal
         FROM reservas r
@@ -71,7 +71,7 @@ try {
 // Obtener listas para los selectores
 try {
     // Obtener usuarios
-    $stmt = $conn->query("SELECT id, nombre, email FROM usuarios ORDER BY nombre");
+    $stmt = $conn->query("SELECT id, nombre_completo, email FROM usuarios ORDER BY nombre_completo");
     $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Obtener itinerarios
@@ -83,6 +83,8 @@ try {
     $animales = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     error_log("Error al obtener datos para los selectores: " . $e->getMessage());
+    $_SESSION['mensaje'] = "Error al cargar los datos necesarios";
+    $_SESSION['tipo_mensaje'] = "danger";
     $usuarios = [];
     $itinerarios = [];
     $animales = [];
@@ -181,6 +183,12 @@ require_once __DIR__ . '/../../plantillas/header.php';
         </div>
     <?php endif; ?>
 
+    <?php if (!empty($errores)): ?>
+        <div class="alert alert-danger">
+            <?php echo implode('<br>', $errores); ?>
+        </div>
+    <?php endif; ?>
+
     <div class="form-container">
         <form method="POST" action="">
             <div class="form-group">
@@ -189,7 +197,8 @@ require_once __DIR__ . '/../../plantillas/header.php';
                     <option value="">Seleccione un usuario</option>
                     <?php foreach ($usuarios as $usuario): ?>
                         <option value="<?php echo $usuario['id']; ?>" <?php echo ($reserva['usuario_id'] == $usuario['id']) ? 'selected' : ''; ?>>
-                            <?php echo htmlspecialchars($usuario['nombre']); ?>
+                            <?php echo htmlspecialchars($usuario['nombre_completo']); ?>
+                            (<?php echo htmlspecialchars($usuario['email']); ?>)
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -221,20 +230,20 @@ require_once __DIR__ . '/../../plantillas/header.php';
 
             <div class="form-group">
                 <label for="fecha_visita">Fecha de Visita</label>
-                <input type="date" name="fecha_visita" id="fecha_visita" class="form-control"
-                    value="<?php echo $reserva['fecha_visita']; ?>" required>
+                <input type="date" id="fecha_visita" name="fecha_visita" class="form-control"
+                    value="<?php echo htmlspecialchars($reserva['fecha_visita']); ?>" required>
             </div>
 
             <div class="form-group">
                 <label for="cantidad_personas">Cantidad de Personas</label>
-                <input type="number" name="cantidad_personas" id="cantidad_personas" class="form-control"
-                    value="<?php echo $reserva['cantidad_personas']; ?>" min="1" required>
+                <input type="number" id="cantidad_personas" name="cantidad_personas" class="form-control"
+                    value="<?php echo htmlspecialchars($reserva['cantidad_personas']); ?>" required min="1">
             </div>
 
             <div class="form-group">
                 <label for="tipo_entrada">Tipo de Entrada</label>
-                <select name="tipo_entrada" id="tipo_entrada" class="form-control" required
-                    onchange="calcularPrecioTotal()">
+                <select name="tipo_entrada" id="tipo_entrada" class="form-control" required>
+                    <option value="">Seleccione un tipo de entrada</option>
                     <option value="general" <?php echo ($reserva['tipo_entrada'] == 'general') ? 'selected' : ''; ?>>
                         General</option>
                     <option value="familiar" <?php echo ($reserva['tipo_entrada'] == 'familiar') ? 'selected' : ''; ?>>
@@ -245,13 +254,15 @@ require_once __DIR__ . '/../../plantillas/header.php';
 
             <div class="form-group">
                 <label for="precio_total">Precio Total</label>
-                <input type="number" name="precio_total" id="precio_total" class="form-control"
-                    value="<?php echo $reserva['precio_total']; ?>" step="0.01" min="0" required readonly>
+                <input type="number" id="precio_total" name="precio_total" class="form-control"
+                    value="<?php echo htmlspecialchars($reserva['precio_total']); ?>" required min="0" step="0.01">
             </div>
 
-            <button type="submit" class="btn-submit">
-                <i class="fas fa-save"></i> Guardar Cambios
-            </button>
+            <div class="form-actions">
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-save"></i> Guardar Cambios
+                </button>
+            </div>
         </form>
     </div>
 </div>

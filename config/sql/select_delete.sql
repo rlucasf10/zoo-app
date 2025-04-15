@@ -26,3 +26,4 @@ ALTER TABLE animales AUTO_INCREMENT = 1;
 SELECT * FROM reservas;
 DELETE FROM reservas WHERE id > 0;
 ALTER TABLE reservas AUTO_INCREMENT = 1;
+  

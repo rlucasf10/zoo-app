@@ -48,16 +48,8 @@ if ($usuario_id == $_SESSION['usuario_id']) {
 
 // Obtener información del usuario
 try {
-    $stmt = $conn->prepare("
-        SELECT u.*, 
-               COUNT(DISTINCT r.id) as total_reservas,
-               COUNT(DISTINCT i.id) as total_itinerarios
-        FROM usuarios u
-        LEFT JOIN reservas r ON u.id = r.usuario_id
-        LEFT JOIN itinerarios i ON u.id = i.usuario_id
-        WHERE u.id = ?
-        GROUP BY u.id
-    ");
+    // Primero obtener los datos básicos del usuario
+    $stmt = $conn->prepare("SELECT * FROM usuarios WHERE id = ?");
     $stmt->execute([$usuario_id]);
     $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -67,6 +59,28 @@ try {
         header("Location: " . BASE_URL . "/views/admin/usuarios/ver_usuarios.php");
         exit();
     }
+
+    // Crear un array separado para los datos del formulario
+    $datos_formulario = [
+        'nombre_completo' => $usuario['nombre_completo'] ?? '',
+        'nombre_usuario' => $usuario['nombre_usuario'] ?? '',
+        'email' => $usuario['email'] ?? '',
+        'es_admin' => $usuario['es_admin'] ?? 0,
+        'total_reservas' => 0,
+        'total_itinerarios' => 0
+    ];
+
+    // Luego obtener el conteo de reservas e itinerarios
+    $stmt = $conn->prepare("SELECT COUNT(*) as total_reservas FROM reservas WHERE usuario_id = ?");
+    $stmt->execute([$usuario_id]);
+    $reservas = $stmt->fetch(PDO::FETCH_ASSOC);
+    $datos_formulario['total_reservas'] = $reservas['total_reservas'] ?? 0;
+
+    $stmt = $conn->prepare("SELECT COUNT(*) as total_itinerarios FROM itinerarios WHERE usuario_id = ?");
+    $stmt->execute([$usuario_id]);
+    $itinerarios = $stmt->fetch(PDO::FETCH_ASSOC);
+    $datos_formulario['total_itinerarios'] = $itinerarios['total_itinerarios'] ?? 0;
+
 } catch (PDOException $e) {
     error_log("Error al obtener información del usuario: " . $e->getMessage());
     $_SESSION['mensaje'] = "Error al obtener información del usuario";
@@ -133,27 +147,28 @@ require_once __DIR__ . '/../../plantillas/header.php';
         <h2>Información del Usuario</h2>
         <div class="info-group">
             <div class="info-label">Nombre Completo</div>
-            <div class="info-value"><?php echo htmlspecialchars($usuario['nombre_completo']); ?></div>
+            <div class="info-value"><?php echo htmlspecialchars($datos_formulario['nombre_completo']); ?></div>
         </div>
         <div class="info-group">
             <div class="info-label">Nombre de Usuario</div>
-            <div class="info-value"><?php echo htmlspecialchars($usuario['nombre_usuario']); ?></div>
+            <div class="info-value"><?php echo htmlspecialchars($datos_formulario['nombre_usuario']); ?></div>
         </div>
         <div class="info-group">
             <div class="info-label">Email</div>
-            <div class="info-value"><?php echo htmlspecialchars($usuario['email']); ?></div>
+            <div class="info-value"><?php echo htmlspecialchars($datos_formulario['email']); ?></div>
         </div>
         <div class="info-group">
             <div class="info-label">Tipo de Usuario</div>
-            <div class="info-value"><?php echo $usuario['es_admin'] ? 'Administrador' : 'Usuario Normal'; ?></div>
+            <div class="info-value"><?php echo $datos_formulario['es_admin'] ? 'Administrador' : 'Usuario Normal'; ?>
+            </div>
         </div>
         <div class="info-group">
             <div class="info-label">Total de Reservas</div>
-            <div class="info-value"><?php echo $usuario['total_reservas']; ?></div>
+            <div class="info-value"><?php echo $datos_formulario['total_reservas']; ?></div>
         </div>
         <div class="info-group">
             <div class="info-label">Total de Itinerarios</div>
-            <div class="info-value"><?php echo $usuario['total_itinerarios']; ?></div>
+            <div class="info-value"><?php echo $datos_formulario['total_itinerarios']; ?></div>
         </div>
     </div>
 

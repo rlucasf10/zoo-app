@@ -138,6 +138,3 @@ require_once __DIR__ . '/../../config/sql/database.php';
             $('.dropdown-toggle').dropdown();
         });
     </script>
-</body>
-
-</html>
