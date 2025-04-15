@@ -1,0 +1,200 @@
+.conocer-mas-container {
+  font-family: "Roboto", sans-serif;
+}
+
+.hero-section {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../images/zoo-history.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+}
+
+.hero-content h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.historia-section,
+.instalaciones-section,
+.estadisticas-section,
+.compromiso-section,
+.cta-section {
+  padding: 5rem 0;
+}
+
+.historia-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.instalaciones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.instalacion-card {
+  text-align: center;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 10px;
+  transition: transform 0.3s;
+}
+
+.instalacion-card:hover {
+  transform: translateY(-5px);
+}
+
+.instalacion-card i {
+  font-size: 2.5rem;
+  color: #28a745;
+  margin-bottom: 1rem;
+}
+
+.estadisticas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  text-align: center;
+}
+
+.estadistica-item .numero {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #28a745;
+  display: block;
+}
+
+.compromiso-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.cta-section {
+  background: #f8f9fa;
+  text-align: center;
+}
+
+.cta-buttons {
+  margin-top: 2rem;
+}
+
+.cta-buttons .btn {
+  margin: 0 1rem;
+  padding: 1rem 2rem;
+}
+
+.inmersiva-section {
+  padding: 5rem 0;
+  background-color: #f8f9fa;
+}
+
+.inmersiva-section h2 {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: #28a745;
+  font-size: 2.5rem;
+}
+
+.inmersiva-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.inmersiva-texto p {
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.inmersiva-caracteristicas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.caracteristica {
+  text-align: center;
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.caracteristica:hover {
+  transform: translateY(-5px);
+}
+
+.caracteristica i {
+  font-size: 2rem;
+  color: #28a745;
+  margin-bottom: 0.5rem;
+}
+
+.caracteristica span {
+  display: block;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.inmersiva-imagen {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.inmersiva-imagen img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.inmersiva-imagen:hover img {
+  transform: scale(1.05);
+}
+
+@media (max-width: 992px) {
+  .inmersiva-content {
+    grid-template-columns: 1fr;
+  }
+
+  .inmersiva-imagen {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .inmersiva-caracteristicas {
+    grid-template-columns: 1fr;
+  }
+
+  .inmersiva-section h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .historia-content {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+}

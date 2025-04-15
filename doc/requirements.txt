@@ -1,0 +1,29 @@
+# Requisitos del Sistema ZooApp
+
+## Servidor Web
+apache2>=2.4
+mod_rewrite
+mod_php
+
+## PHP
+php>=8.0
+php-pdo
+php-mysql
+php-json
+php-session
+
+## Base de Datos
+mysql-server>=5.7
+mysql-client
+
+## Dependencias del Proyecto
+composer
+git
+
+## Extensiones PHP Requeridas
+- PDO
+- PDO_MySQL
+- JSON
+- Session
+- mbstring
+- fileinfo 

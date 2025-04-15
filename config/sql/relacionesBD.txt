@@ -1,0 +1,37 @@
+Explicación de las Relaciones
+
+Usuarios → Reservas:
+Un usuario puede realizar muchas reservas. La clave foránea usuario_id en la tabla reservas establece esta relación.
+
+Especies → Animales:
+Cada animal pertenece a una especie. La clave foránea especie_id en la tabla animales hace referencia a la tabla especies.
+
+Itinerarios → Animales:
+Ahora, cada animal puede estar asociado con un itinerario específico, utilizando la clave foránea itinerario_id en la tabla animales. 
+Esto hace que los animales estén vinculados a los itinerarios disponibles en el zoológico.
+
+Itinerarios → Reservas:
+Cada reserva está vinculada a un itinerario. La clave foránea itinerario_id en la tabla reservas establece esta relación.
+
+Animales → Reservas:
+Ahora, las reservas también están asociadas con animales específicos. La clave foránea animal_id en la tabla reservas hace referencia a los animales que están disponibles para ser reservados por los usuarios. 
+Es importante notar que no es obligatorio seleccionar un animal para la reserva, por lo que utilizamos ON DELETE SET NULL para manejar posibles eliminaciones de animales.
+
+
+Relaciones Detalladas:
+
+Usuario - Reserva:
+Un usuario puede tener muchas reservas, pero cada reserva está asociada con un solo usuario.
+
+Especie - Animal:
+Cada animal pertenece a una especie, y cada especie puede tener múltiples animales.
+
+Itinerario - Animal:
+Cada animal está asociado con un itinerario, pero los itinerarios pueden tener múltiples animales. Un animal puede estar en varios itinerarios, 
+dependiendo del caso (esto podría ser modificado si cada animal solo está en un itinerario a la vez).
+
+Itinerario - Reserva:
+Un itinerario puede ser reservado por múltiples usuarios, y cada reserva está vinculada a un solo itinerario.
+
+Animal - Reserva:
+Cada reserva puede estar asociada con un animal específico, y un animal puede ser parte de varias reservas. Esto también permite que las reservas se asignen a un animal para una experiencia más personalizada

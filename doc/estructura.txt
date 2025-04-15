@@ -1,0 +1,103 @@
+ESTRUCTURA DEL PROYECTO ZOO-APP
+=============================
+
+1. DIRECTORIOS PRINCIPALES
+-------------------------
+/assets             Recursos estáticos del proyecto
+/config             Configuraciones y scripts SQL
+/controllers        Controladores de la aplicación
+/doc                Documentación del proyecto
+/vendor             Dependencias de Composer
+/views              Vistas de la aplicación
+
+2. ESTRUCTURA DETALLADA
+----------------------
+
+2.1. /assets
+    ├── /css           Estilos CSS
+    │   ├── index.css      Estilos globales
+    │   ├── inicio.css     Estilos para la página de inicio
+    │   ├── animales.css   Estilos para la página de animales
+    │   ├── itinerarios.css # Estilos para la página de itinerarios
+    │   ├── reservas.css   Estilos para la página de reservas
+    │   ├── conocer-mas.css # Estilos para la página conocer más
+    │   ├── login_register.css # Estilos para login y registro
+    │   ├── user_dashboard.css # Estilos para el dashboard de usuario
+    │   └── /admin         Estilos para el panel de administración
+    │       ├── admin_dashboard.css # Estilos para el dashboard de admin
+    │       ├── /especies  Estilos para gestión de especies
+    │       ├── /animales  Estilos para gestión de animales
+    │       ├── /itinerarios # Estilos para gestión de itinerarios
+    │       ├── /reservas  Estilos para gestión de reservas
+    │       └── /usuarios  Estilos para gestión de usuarios
+    ├── /js            Scripts JavaScript
+    │   ├── script.js      Script principal
+    │   ├── itinerarios.js
+    │   └── reservas.js
+    └── /images        Imágenes del proyecto
+
+2.2. /config
+    ├── config.php        Configuración general de la aplicación
+    └── /sql          Scripts SQL y configuración de base de datos
+        ├── zoo-app.sql        Script principal de la base de datos
+        ├── select_delete.sql  Scripts de selección y eliminación
+        ├── inserts.sql        Datos iniciales
+        ├── database.php       Configuración de conexión
+        ├── zoo-app.mwb        Modelo Workbench
+        ├── zoo-app.png        Diagrama de la base de datos
+        └── relacionesBD.txt   Documentación de relaciones
+
+2.3. /controllers
+    ├── AdminController.php
+    ├── AnimalController.php
+    ├── AuthController.php
+    ├── EspeciesController.php
+    ├── GoogleAuthController.php
+    ├── ItinerarioController.php
+    └── ReservaController.php
+
+2.4. /views
+    ├── /admin           Panel de administración
+    │   ├── admin_dashboard.php
+    │   ├── /animales    Gestión de animales
+    │   ├── /especies    Gestión de especies
+    │   ├── /itinerarios # Gestión de itinerarios
+    │   ├── /reservas    Gestión de reservas
+    │   └── /usuarios    Gestión de usuarios
+    ├── /login_register  Autenticación
+    │   ├── login.php
+    │   ├── register.php
+    │   └── logout.php
+    ├── /plantillas      Plantillas reutilizables
+    │   ├── header.php
+    │   └── footer.php
+    ├── /footer          Componentes del pie de página
+    │   ├── contacto.php
+    │   ├── politica_privacidad.php
+    │   └── terminos_de_servicio.php
+    ├── animales.php
+    ├── conocer-mas.php
+    ├── inicio.php
+    ├── itinerarios.php
+    ├── reservas.php
+    └── user_dashboard.php
+
+2.5. /doc
+    ├── estructura.txt     Estructura detallada del proyecto
+    └── requirements.txt   Requisitos del sistema
+
+3. ARCHIVOS PRINCIPALES
+----------------------
+.env              Variables de entorno
+.gitignore        Archivos ignorados por Git
+index.php         Punto de entrada principal
+README.md         Documentación principal
+
+4. NOTAS IMPORTANTES
+-------------------
+- La aplicación sigue el patrón VC (View-Controller)
+- Los controladores manejan la lógica de negocio
+- Las vistas contienen la presentación y la lógica de UI
+- Los assets están organizados por tipo (css, js, images)
+- La configuración de la base de datos está en /config/sql
+- La configuración general de la aplicación está en /config/config.php

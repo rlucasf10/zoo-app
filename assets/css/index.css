@@ -1,0 +1,492 @@
+/* ==========================
+   RESET Y VARIABLES GLOBALES
+   ========================== */
+
+/* Reset de márgenes y padding */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Variables globales */
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #4caf50;
+  --background-color: #ffebb2;
+  --text-dark: #222;
+  --text-light: #fff;
+  --navbar-bg: #343a40;
+  --hover-color: #752c17;
+  --footer-bg: #2c3e50;
+  --button-radius: 25px;
+  --transition-duration: 0.3s;
+}
+
+/* ==========================
+   ESTILOS GENERALES
+   ========================== */
+
+body {
+  font-family: "Roboto", Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-dark);
+}
+
+/* Sobrescribir el ancho máximo del contenedor de Bootstrap */
+@media (min-width: 1200px) {
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl {
+    max-width: 1200px;
+  }
+}
+
+/* ==========================
+   NAVBAR
+   ========================== */
+
+.navbar {
+  background-color: var(--navbar-bg);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+#navbar-item {
+  display: flex;
+  gap: 50px;
+}
+
+.navbar-brand {
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  color: var(--text-light);
+  font-weight: 500;
+}
+
+@media (min-width: 800px) {
+  .navbar-nav .nav-link {
+    margin-bottom: 25px;
+  }
+}
+
+.navbar-nav .nav-link {
+  margin-bottom: 0px;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-light);
+  font-weight: bold;
+  transition: color var(--transition-duration);
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--primary-color);
+}
+
+/* Estilos del botón del menú móvil */
+.navbar-toggler {
+  border: none;
+  display: none !important; /* Oculto por defecto con !important */
+}
+
+.navbar-toggler-icon {
+  filter: invert(1); /* Hace que el icono se vea blanco */
+}
+
+/* Manejo de nombres de usuario largos */
+.navbar-nav .dropdown-toggle {
+  overflow: visible;
+  text-overflow: clip;
+  white-space: nowrap;
+  max-width: none;
+}
+
+/* Forzar el colapso del navbar cuando hay nombres largos */
+@media (min-width: 1200px) {
+  .navbar-collapse.collapse {
+    display: flex !important;
+    flex-basis: auto;
+  }
+
+  .navbar-nav .dropdown-toggle {
+    max-width: none;
+  }
+
+  /* Cuando el nombre es muy largo, forzar el colapso */
+  .navbar-nav .dropdown-toggle[aria-expanded="false"] {
+    max-width: none;
+  }
+}
+
+/* Mostrar el botón de toggle cuando el nombre de usuario es largo */
+.navbar-nav .dropdown-toggle.long-username + .navbar-toggler {
+  display: block !important;
+}
+
+/* Ajustar el ancho del botón de Panel Administrador según la longitud del nombre de usuario */
+.navbar-nav .dropdown-toggle#adminDropdown {
+  max-width: none;
+}
+
+/* Cuando el nombre de usuario es largo, reducir el ancho del botón de Panel Administrador */
+.navbar-nav
+  .dropdown-toggle.long-username
+  ~ .navbar-nav
+  .dropdown-toggle#adminDropdown {
+  max-width: none;
+}
+
+#about {
+  text-align: center;
+  display: block;
+  margin: 50px;
+}
+#about h2 {
+  padding-bottom: 10px;
+}
+/* ==========================
+   BOTONES (Optimizado)
+   ========================== */
+
+.btn {
+  background-color: var(--primary-color);
+  color: var(--text-light);
+  padding: 10px 20px;
+  border-radius: var(--button-radius);
+  transition: background-color var(--transition-duration),
+    color var(--transition-duration);
+}
+
+.btn:hover {
+  background-color: var(--hover-color);
+  color: var(--text-light);
+}
+
+/* ==========================
+   ESTILOS PARA EL MENÚ DESPLEGABLE
+   ========================== */
+
+/* Estilos básicos para los menús desplegables */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  min-width: 10rem;
+  padding: 0.5rem 0;
+  margin: 0;
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 1.5rem;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+}
+
+.dropdown-item:hover {
+  background-color: var(--hover-color);
+  color: #f8f9fa; /* Mejora el contraste */
+}
+
+.dropdown-divider {
+  height: 0;
+  margin: 0.5rem 0;
+  overflow: hidden;
+  border-top: 1px solid #e9ecef;
+}
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 768px) {
+  .dropdown-menu {
+    position: static;
+    float: none;
+    width: 100%;
+    margin-top: 0;
+    background-color: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+}
+
+/* ==========================
+   SECCIONES
+   ========================== */
+
+/* HERO SECTION */
+.hero {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../images/hero-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  position: relative;
+}
+
+#hero h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  animation: fadeInUp 1s ease;
+}
+
+#hero p {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+  animation: fadeInUp 1s ease 0.3s;
+  animation-fill-mode: both;
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Secciones: ANIMALES, VISITANTES Y TESTIMONIOS */
+.animals,
+.visit,
+.testimonials {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.animals {
+  width: 100%;
+  background-color: white;
+}
+
+.animals h2,
+.visit h2,
+.testimonials h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: var(--primary-color);
+  animation: fadeInUp 1s ease;
+}
+
+/* Galería de animales */
+.gallery {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 0 20px;
+}
+
+.animal-item {
+  text-align: center;
+  flex: 1 1 250px;
+  max-width: 250px;
+  animation: fadeInUp 1s ease;
+  animation-fill-mode: both;
+}
+
+.animal-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.animal-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.animal-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.animal-item:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.animal-item img {
+  width: 100%;
+  border-radius: 10px;
+  height: auto;
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.animal-item img:hover {
+  transform: scale(1.05);
+}
+
+.animal-name {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #333;
+  margin-top: 5px;
+  transition: opacity 0.5s;
+}
+
+/* Sección de visitantes */
+.visit {
+  background-color: var(--background-color);
+}
+
+/* Sección de testimonios */
+.testimonials {
+  background-color: #e6f7ff;
+}
+
+.testimonial-item {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.testimonial-item p {
+  font-style: italic;
+}
+
+/* ==========================
+   FOOTER
+   ========================== */
+
+footer {
+  background-color: var(--footer-bg);
+  color: var(--text-light);
+  text-align: center;
+  padding: 20px 0;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+footer nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+footer nav ul li {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+footer nav ul li a,
+footer p a {
+  color: var(--text-light);
+  text-decoration: none;
+  transition: color var(--transition-duration);
+}
+
+footer nav ul li a:hover,
+footer p a:hover {
+  color: #f39c12;
+}
+
+footer p {
+  margin: 10px 0 0;
+  font-size: 12px;
+}
+
+/* ==========================
+   ESTILOS ADICIONALES PARA NAVEGACIÓN
+   ========================== */
+
+/* Estilos para el menú de navegación */
+.navbar-nav .nav-item {
+  margin-right: 15px;
+}
+
+.navbar-nav .nav-item:last-child {
+  margin-right: 0;
+}
+
+/* Espaciado adicional para el botón de inicio de sesión */
+.navbar-nav .nav-item.dropdown {
+  margin-left: 10px;
+}
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 768px) {
+  .navbar-nav {
+    width: 100%;
+  }
+
+  .navbar-nav .nav-item {
+    margin-bottom: 30px;
+  }
+
+  .navbar-nav .dropdown-menu {
+    margin-top: 5px;
+    background-color: white;
+  }
+}
+
+/* Mostrar el botón de toggle en pantallas pequeñas */
+@media (max-width: 991.98px) {
+  .navbar-toggler {
+    display: block !important;
+  }
+}
+
+/* Estilos para el nombre de usuario en el header */
+.navbar-nav .nav-link .user-name {
+  display: inline-block;
+  max-width: none;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+  vertical-align: middle;
+}
+
+@media (max-width: 991.98px) {
+  .navbar-nav .nav-link .user-name {
+    max-width: none;
+  }
+}
+
+/* Estilos para el dropdown de usuario */
+.dropdown-header {
+  padding: 10px 15px;
+  background-color: rgba(0, 0, 0, 0.05);
+  font-size: 0.9rem;
+  white-space: normal;
+  word-break: break-word;
+}

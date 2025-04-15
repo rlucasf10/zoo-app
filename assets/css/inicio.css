@@ -1,0 +1,365 @@
+/* Estilos específicos para la página de inicio */
+
+/* Estilos generales */
+.inicio-seccion-titulo {
+  text-align: center;
+  margin-bottom: 3rem;
+  color: var(--primary-color);
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.inicio-separador {
+  width: 80px;
+  height: 4px;
+  background: var(--secondary-color);
+  margin: 1rem auto;
+  border-radius: 2px;
+}
+
+.inicio-boton {
+  display: inline-block;
+  padding: 12px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition-duration);
+  letter-spacing: 1px;
+}
+
+.inicio-boton-primario {
+  background-color: var(--secondary-color);
+  color: var(--text-light);
+  border: none;
+  padding: 12px 30px;
+  border-radius: 50px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.inicio-boton-primario:hover {
+  background-color: var(--hover-color);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+a:hover {
+
+    color: white;
+    text-decoration: none;
+}
+
+.inicio-boton-secundario {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.inicio-boton-secundario:hover {
+  background-color: var(--hover-color);
+  color: var(--text-light);
+}
+
+/* Sección Bienvenida */
+.inicio-bienvenida {
+  min-height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../images/hero-bg.jpg") center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--text-light);
+  padding: 0 20px;
+}
+
+.inicio-bienvenida-contenido {
+  max-width: 800px;
+}
+
+.inicio-bienvenida-titulo {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  animation: fadeInUp 1s ease;
+}
+
+.inicio-bienvenida-subtitulo {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  animation: fadeInUp 1s ease 0.3s;
+  animation-fill-mode: both;
+}
+
+/* Sección Descubrir */
+.inicio-descubrir {
+  padding: 5rem 0;
+  background-color: #fff;
+}
+
+.inicio-categorias {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.inicio-categoria {
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.inicio-categoria:hover {
+  transform: translateY(-10px);
+}
+
+.inicio-categoria-imagen {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.inicio-categoria-contenido {
+  padding: 1.5rem;
+}
+
+.inicio-categoria-titulo {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.inicio-categoria-texto {
+  margin-bottom: 1.5rem;
+  color: var(--text-dark);
+}
+
+/* Sección Animales Destacados */
+.inicio-destacados {
+  padding: 5rem 0;
+  background-color: var(--background-color);
+}
+
+.inicio-animales {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.inicio-animal {
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.inicio-animal:hover {
+  transform: translateY(-10px);
+}
+
+.inicio-animal-imagen {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.inicio-animal-contenido {
+  padding: 1.5rem;
+}
+
+.inicio-animal-titulo {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.inicio-animal-especie {
+  font-size: 1rem;
+  color: var(--secondary-color);
+  margin-bottom: 1rem;
+}
+
+.inicio-animal-descripcion {
+  color: var(--text-dark);
+}
+
+/* Sección Experiencias */
+.inicio-experiencias {
+  padding: 5rem 0;
+  background-color: #fff;
+}
+
+.inicio-experiencias-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.inicio-experiencia {
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.inicio-experiencia:hover {
+  transform: translateY(-10px);
+}
+
+.inicio-experiencia-imagen {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.inicio-experiencia-contenido {
+  padding: 1.5rem;
+}
+
+.inicio-experiencia-titulo {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.inicio-experiencia-descripcion {
+  color: var(--text-dark);
+}
+
+/* Sección Testimonios */
+.inicio-testimonios {
+  padding: 5rem 0;
+  background-color: var(--background-color);
+}
+
+.inicio-testimonios-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.inicio-testimonio {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.inicio-testimonio:hover {
+  transform: translateY(-10px);
+}
+
+.inicio-testimonio-texto {
+  font-style: italic;
+  margin-bottom: 1rem;
+  color: var(--text-dark);
+}
+
+.inicio-testimonio-autor {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* Sección CTA */
+.inicio-cta {
+  padding: 5rem 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("../images/hero-bg.jpg") center/cover;
+  text-align: center;
+  color: var(--text-light);
+}
+
+.inicio-cta-contenido {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.inicio-cta-titulo {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.inicio-cta-texto {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-20px);
+  }
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .inicio-bienvenida-titulo {
+    font-size: 3rem;
+  }
+  .inicio-bienvenida-subtitulo {
+    font-size: 1.3rem;
+  }
+  .inicio-seccion-titulo {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .inicio-bienvenida-titulo {
+    font-size: 2.5rem;
+  }
+  .inicio-categorias,
+  .inicio-animales,
+  .inicio-experiencias-grid,
+  .inicio-testimonios-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .inicio-bienvenida-titulo {
+    font-size: 2rem;
+  }
+  .inicio-bienvenida-subtitulo {
+    font-size: 1.1rem;
+  }
+  .inicio-seccion-titulo {
+    font-size: 1.8rem;
+  }
+  .inicio-boton {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}

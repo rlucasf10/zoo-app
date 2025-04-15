@@ -1,0 +1,211 @@
+.ver-reservas-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ver-reservas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.ver-reservas-header h1 {
+  margin: 0;
+  color: #333;
+  font-size: 2rem;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.btn-action {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.3s ease;
+}
+
+.btn-crear {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn-crear:hover {
+  background-color: #218838;
+  color: white;
+}
+
+.btn-volver {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-volver:hover {
+  background-color: #5a6268;
+  color: white;
+}
+
+.reservas-table-container {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.reservas-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reservas-table th,
+.reservas-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.reservas-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #495057;
+}
+
+.reservas-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+.btn-edit,
+.btn-delete {
+  padding: 0.25rem 0.5rem;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.3s ease;
+}
+
+.btn-edit {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.btn-edit:hover {
+  background-color: #e0a800;
+}
+
+.btn-delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #c82333;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+/* Estilos específicos solo para los botones de acciones en la tabla */
+.reservas-table .action-buttons .btn-action,
+.reservas-table-container .action-buttons .btn-action {
+  color:black;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.reservas-table .action-buttons .btn-action i,
+.reservas-table-container .action-buttons .btn-action i {
+  font-size: 14px;
+}
+
+.alert {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: 1px solid transparent;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+/* Estilos para el estado de la reserva */
+.estado-pendiente {
+  color: #ffc107;
+  font-weight: 500;
+}
+
+.estado-confirmada {
+  color: #28a745;
+  font-weight: 500;
+}
+
+.estado-cancelada {
+  color: #dc3545;
+  font-weight: 500;
+}
+
+.estado-completada {
+  color: #17a2b8;
+  font-weight: 500;
+}
+
+.no-reservas {
+  text-align: center;
+  padding: 2rem;
+  border-radius: 8px;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-reservas i {
+  font-size: 3rem;
+  color: #6c757d;
+  margin-bottom: 1rem;
+}
+
+.no-reservas p {
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin: 0;
+  font-family: "Roboto", Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+}

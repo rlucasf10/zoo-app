@@ -1,0 +1,254 @@
+/* ==========================
+   ESTRUCTURA DE LA PÁGINA
+   ========================== */
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: "Roboto", Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-dark);
+}
+
+/* Contenedor principal de la página */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* ==========================
+   DASHBOARD
+   ========================== */
+
+.dashboard-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.welcome-section {
+  background: linear-gradient(135deg, #4caf50, #45a049);
+  color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.welcome-section .user-email {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.welcome-section .user-email i {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.welcome-section p:last-child {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  width: 100%;
+}
+
+.dashboard-card {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.dashboard-card h2 {
+  color: #333;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #4caf50;
+}
+
+.reserva-item,
+.itinerario-item {
+  background: #f9f9f9;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border-left: 4px solid #4caf50;
+}
+
+.reserva-item:hover,
+.itinerario-item:hover {
+  background: #f0f0f0;
+  transition: background-color 0.3s ease;
+}
+
+.reserva-info,
+.itinerario-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-label {
+  font-weight: bold;
+  color: #666;
+}
+
+.info-value {
+  color: #333;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.empty-state i {
+  font-size: 3rem;
+  color: #ccc;
+  margin-bottom: 1rem;
+}
+
+.btn-action {
+  background: #4caf50;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.btn-action:hover {
+  background: #45a049;
+  color: white;
+  text-decoration: none;
+}
+
+/* ==========================
+   FORMULARIOS Y ENTRADAS
+   ========================== */
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+/* ==========================
+   RESPONSIVE
+   ========================== */
+
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .welcome-section {
+    padding: 1.5rem;
+  }
+
+  .welcome-section h1 {
+    font-size: 2rem;
+  }
+
+  .welcome-section .user-email {
+    font-size: 1rem;
+  }
+}
+
+/* ==========================
+   FOOTER
+   ========================== */
+
+footer {
+  background-color: var(--footer-bg);
+  color: var(--text-light);
+  text-align: center;
+  padding: 20px 0;
+  margin-top: auto;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+footer nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer nav ul li {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+footer nav ul li a,
+footer p a {
+  color: var(--text-light);
+  text-decoration: none;
+  transition: color var(--transition-duration);
+}
+
+footer nav ul li a:hover,
+footer p a:hover {
+  color: #f39c12;
+}
+
+footer p {
+  margin: 10px 0 0;
+  font-size: 12px;
+}
+
+/* Ajuste para mantener el footer al final */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+  padding-bottom: 2rem;
+}
