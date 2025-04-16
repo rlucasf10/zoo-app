@@ -23,7 +23,7 @@ require_once __DIR__ . '/../../config/sql/database.php';
     <meta property="og:title" content="Zoo App - Experiencia única con animales">
     <meta property="og:description"
         content="Descubre la vida salvaje en nuestro zoológico. Actividades educativas, programas de conservación y mucho más.">
-    <meta property="og:image" content="<?php echo BASE_URL; ?>/assets/images/logo.png">
+    <meta property="og:image" content="<?php echo BASE_URL; ?>/assets/images/favicon.png">
     <meta property="og:url" content="https://zooapp.free.nf/zoo-app<?php echo $_SERVER['REQUEST_URI']; ?>">
     <meta property="og:type" content="website">
     <link rel="canonical" href="https://zooapp.free.nf/zoo-app<?php echo $_SERVER['REQUEST_URI']; ?>">
