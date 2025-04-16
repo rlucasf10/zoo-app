@@ -29,6 +29,12 @@ services:
       - ./config/sql/01-zoo-app.sql:/docker-entrypoint-initdb.d/01-zoo-app.sql
       - ./config/sql/02-inserts.sql:/docker-entrypoint-initdb.d/02-inserts.sql
       - ./config/sql/my.cnf:/etc/mysql/conf.d/my.cnf
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+        reservations:
+          memory: 256M
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin

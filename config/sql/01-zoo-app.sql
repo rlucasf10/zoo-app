@@ -1,9 +1,7 @@
 SET NAMES utf8mb4;
 SET CHARACTER SET utf8mb4;
 SET collation_connection = 'utf8mb4_unicode_ci';
-
-create database zoo_app;
-
+CREATE DATABASE IF NOT EXISTS zoo_app;
 -- Usar la base de datos existente
 USE zoo_app;
 -- Tabla de usuarios (debe crearse primero)
