@@ -13,6 +13,20 @@ require_once __DIR__ . '/../../config/sql/database.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Meta etiquetas SEO -->
+    <meta name="description"
+        content="Zoo App - Un mundo lleno de maravillas naturales y animales fascinantes. Visita nuestro zoológico y disfruta de una experiencia única.">
+    <meta name="keywords"
+        content="zoológico, animales, conservación, naturaleza, safari, experiencia educativa, zoo app">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Zoo App">
+    <meta property="og:title" content="Zoo App - Experiencia única con animales">
+    <meta property="og:description"
+        content="Descubre la vida salvaje en nuestro zoológico. Actividades educativas, programas de conservación y mucho más.">
+    <meta property="og:image" content="<?php echo BASE_URL; ?>/assets/images/logo.png">
+    <meta property="og:url" content="https://zooapp.free.nf<?php echo $_SERVER['REQUEST_URI']; ?>">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://zooapp.free.nf<?php echo $_SERVER['REQUEST_URI']; ?>">
     <title>Zoo App</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Bootstrap CSS -->

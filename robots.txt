@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /config/
+Disallow: /vendor/
+Disallow: /views/admin/
+Disallow: /views/login_register/logout.php
+
+Sitemap: https://zooapp.free.nf/sitemap.xml 
