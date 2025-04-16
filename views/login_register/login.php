@@ -108,7 +108,7 @@ if (isset($_SESSION['error'])) {
                     </a>
                 </div>
             </form>
-            <p>¿No tienes cuenta? <a href="<?php echo BASE_URL; ?>/views/login_register/register.php">Regístrate</a></p>
+            <p>¿No tienes cuenta? <a href="<?php echo BASE_URL; ?>/views/login_register/register">Regístrate</a></p>
         </div>
     </section>
 </main>

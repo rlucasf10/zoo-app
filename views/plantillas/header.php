@@ -24,9 +24,9 @@ require_once __DIR__ . '/../../config/sql/database.php';
     <meta property="og:description"
         content="Descubre la vida salvaje en nuestro zoológico. Actividades educativas, programas de conservación y mucho más.">
     <meta property="og:image" content="<?php echo BASE_URL; ?>/assets/images/logo.png">
-    <meta property="og:url" content="https://zooapp.free.nf<?php echo $_SERVER['REQUEST_URI']; ?>">
+    <meta property="og:url" content="https://zooapp.free.nf/zoo-app<?php echo $_SERVER['REQUEST_URI']; ?>">
     <meta property="og:type" content="website">
-    <link rel="canonical" href="https://zooapp.free.nf<?php echo $_SERVER['REQUEST_URI']; ?>">
+    <link rel="canonical" href="https://zooapp.free.nf/zoo-app<?php echo $_SERVER['REQUEST_URI']; ?>">
     <title>Zoo App</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- Bootstrap CSS -->
@@ -52,7 +52,7 @@ require_once __DIR__ . '/../../config/sql/database.php';
         ?>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
             <div class="container">
-                <a class="navbar-brand font-weight-bold" href="<?php echo BASE_URL; ?>/index.php">Zoo App</a>
+                <a class="navbar-brand font-weight-bold" href="<?php echo BASE_URL; ?>/index">Zoo App</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -61,16 +61,16 @@ require_once __DIR__ . '/../../config/sql/database.php';
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul id="navbar-item" class="navbar-nav mx-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo BASE_URL; ?>/views/inicio.php">Inicio</a>
+                            <a class="nav-link" href="<?php echo BASE_URL; ?>/views/inicio">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo BASE_URL; ?>/views/animales.php">Animales</a>
+                            <a class="nav-link" href="<?php echo BASE_URL; ?>/views/animales">Animales</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo BASE_URL; ?>/views/itinerarios.php">Itinerario</a>
+                            <a class="nav-link" href="<?php echo BASE_URL; ?>/views/itinerarios">Itinerario</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo BASE_URL; ?>/views/reservas.php">Reservas</a>
+                            <a class="nav-link" href="<?php echo BASE_URL; ?>/views/reservas">Reservas</a>
                         </li>
                     </ul>
 
@@ -126,11 +126,10 @@ require_once __DIR__ . '/../../config/sql/database.php';
                                     Iniciar sesión
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="<?php echo BASE_URL; ?>/views/login_register/login.php">
+                                    <a class="dropdown-item" href="<?php echo BASE_URL; ?>/views/login_register/login">
                                         <i class="fas fa-sign-in-alt"></i> Iniciar sesión
                                     </a>
-                                    <a class="dropdown-item"
-                                        href="<?php echo BASE_URL; ?>/views/login_register/register.php">
+                                    <a class="dropdown-item" href="<?php echo BASE_URL; ?>/views/login_register/register">
                                         <i class="fas fa-user-plus"></i> Registrarse
                                     </a>
                                 </div>

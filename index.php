@@ -10,7 +10,7 @@ require_once __DIR__ . '/views/plantillas/header.php';
         <div class="hero-content">
             <h1>Bienvenidos a Zoo App</h1>
             <p>Un mundo lleno de maravillas naturales y animales fascinantes te espera. ¡Descúbrelo con nosotros!</p>
-            <a href="<?php echo BASE_URL; ?>/views/conocer-mas.php" class="btn btn-conocer-mas">Conocer más</a>
+            <a href="<?php echo BASE_URL; ?>/views/conocer-mas" class="btn btn-conocer-mas">Conocer más</a>
         </div>
     </section>
 
@@ -61,7 +61,7 @@ require_once __DIR__ . '/views/plantillas/header.php';
             </div>
         </div>
         <div class="ver-animales">
-            <a href="<?php echo BASE_URL; ?>/views/animales.php" class="btn">Ver más animales</a>
+            <a href="<?php echo BASE_URL; ?>/views/animales" class="btn">Ver más animales</a>
         </div>
     </section>
 
@@ -69,7 +69,7 @@ require_once __DIR__ . '/views/plantillas/header.php';
     <section id="visit" class="visit">
         <h2>Planifica tu Visita</h2>
         <p>Consulta nuestros horarios de apertura y compra tus entradas online para una experiencia sin igual.</p>
-        <a href="<?php echo BASE_URL; ?>/views/reservas.php" class="btn">Comprar Entradas</a>
+        <a href="<?php echo BASE_URL; ?>/views/reservas" class="btn">Comprar Entradas</a>
     </section>
 
     <!-- Testimonios -->

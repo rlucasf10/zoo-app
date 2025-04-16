@@ -5,4 +5,4 @@ Disallow: /vendor/
 Disallow: /views/admin/
 Disallow: /views/login_register/logout.php
 
-Sitemap: https://zooapp.free.nf/sitemap.xml 
+Sitemap: https://zooapp.free.nf/zoo-app/sitemap.xml 

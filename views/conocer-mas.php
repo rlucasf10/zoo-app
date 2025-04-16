@@ -161,8 +161,8 @@ require_once __DIR__ . '/plantillas/header.php';
             <h2>¿Listo para la Aventura?</h2>
             <p>Únete a nosotros en esta increíble experiencia y ayuda a proteger nuestro planeta.</p>
             <div class="cta-buttons">
-                <a href="<?php echo BASE_URL; ?>/views/reservas.php" class="btn btn-secondary">Comprar Entradas</a>
-                <a href="<?php echo BASE_URL; ?>/views/footer/contacto.php" class="btn btn-secondary">Contactar</a>
+                <a href="<?php echo BASE_URL; ?>/views/reservas" class="btn btn-secondary">Comprar Entradas</a>
+                <a href="<?php echo BASE_URL; ?>/views/footer/contacto" class="btn btn-secondary">Contactar</a>
             </div>
         </div>
     </section>

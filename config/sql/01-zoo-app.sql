@@ -2,11 +2,12 @@ SET NAMES utf8mb4;
 SET CHARACTER SET utf8mb4;
 SET collation_connection = 'utf8mb4_unicode_ci';
 
+
 -- Crear la base de datos si no existe
 -- CREATE DATABASE IF NOT EXISTS zoo_app;
 
 -- Usar la base de datos existente
-USE zoo_app;
+-- USE zoo_app;
 -- Tabla de usuarios (debe crearse primero)
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,

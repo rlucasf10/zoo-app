@@ -172,8 +172,8 @@ try {
             <?php if (!isset($_SESSION['usuario_id'])): ?>
                 <div class="alert alert-info">
                     <p>Para crear una reserva, necesitas <a
-                            href="<?php echo BASE_URL; ?>/views/login_register/login.php">iniciar sesión</a> o <a
-                            href="<?php echo BASE_URL; ?>/views/login_register/registro.php">registrarte</a>.</p>
+                            href="<?php echo BASE_URL; ?>/views/login_register/login">iniciar sesión</a> o <a
+                            href="<?php echo BASE_URL; ?>/views/login_register/register">registrarte</a>.</p>
                 </div>
             <?php else: ?>
                 <?php if (isset($mensaje)): ?>

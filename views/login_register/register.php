@@ -138,7 +138,7 @@ if (isset($_SESSION['error'])) {
                     <button type="submit" class="btn btn-primary">Registrarse</button>
                 </div>
             </form>
-            <p>¿Ya tienes cuenta? <a href="<?php echo BASE_URL; ?>/views/login_register/login.php">Inicia sesión</a>
+            <p>¿Ya tienes cuenta? <a href="<?php echo BASE_URL; ?>/views/login_register/login">Inicia sesión</a>
             </p>
         </div>
     </section>

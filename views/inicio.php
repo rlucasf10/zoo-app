@@ -30,7 +30,7 @@ echo '<link rel="stylesheet" href="' . BASE_URL . '/assets/css/inicio.css">';
                         <h3 class="inicio-categoria-titulo">Animales</h3>
                         <p class="inicio-categoria-texto">Conoce nuestra increíble colección de animales de todo el
                             mundo.</p>
-                        <a href="<?php echo BASE_URL; ?>/views/animales.php"
+                        <a href="<?php echo BASE_URL; ?>/views/animales"
                             class="inicio-boton inicio-boton-secundario">Ver Animales</a>
                     </div>
                 </div>
@@ -40,7 +40,7 @@ echo '<link rel="stylesheet" href="' . BASE_URL . '/assets/css/inicio.css">';
                     <div class="inicio-categoria-contenido">
                         <h3 class="inicio-categoria-titulo">Itinerarios</h3>
                         <p class="inicio-categoria-texto">Planifica tu visita con nuestras rutas recomendadas.</p>
-                        <a href="<?php echo BASE_URL; ?>/views/itinerarios.php"
+                        <a href="<?php echo BASE_URL; ?>/views/itinerarios"
                             class="inicio-boton inicio-boton-secundario">Ver Itinerarios</a>
                     </div>
                 </div>
@@ -50,7 +50,7 @@ echo '<link rel="stylesheet" href="' . BASE_URL . '/assets/css/inicio.css">';
                     <div class="inicio-categoria-contenido">
                         <h3 class="inicio-categoria-titulo">Experiencias</h3>
                         <p class="inicio-categoria-texto">Vive experiencias únicas con nuestros animales.</p>
-                        <a href="<?php echo BASE_URL; ?>/views/conocer-mas.php"
+                        <a href="<?php echo BASE_URL; ?>/views/conocer-mas"
                             class="inicio-boton inicio-boton-secundario">Conocer Más</a>
                     </div>
                 </div>
@@ -159,7 +159,7 @@ echo '<link rel="stylesheet" href="' . BASE_URL . '/assets/css/inicio.css">';
             <h2 class="inicio-cta-titulo">¿Listo para tu próxima aventura?</h2>
             <p class="inicio-cta-texto">Reserva tu visita ahora y vive una experiencia inolvidable en nuestro zoológico.
             </p>
-            <a href="<?php echo BASE_URL; ?>/views/reservas.php" class="inicio-boton inicio-boton-primario">Reservar
+            <a href="<?php echo BASE_URL; ?>/views/reservas" class="inicio-boton inicio-boton-primario">Reservar
                 Ahora</a>
         </div>
     </section>

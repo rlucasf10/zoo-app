@@ -233,8 +233,8 @@ require_once __DIR__ . '/plantillas/header.php';
                         <?php if (!isset($_SESSION['usuario_id'])): ?>
                             <div class="alert alert-info">
                                 <p>Para crear un itinerario personalizado, necesitas <a
-                                        href="<?php echo BASE_URL; ?>/views/login_register/login.php">iniciar sesión</a> o
-                                    <a href="<?php echo BASE_URL; ?>/views/login_register/registro.php">registrarte</a>.
+                                        href="<?php echo BASE_URL; ?>/views/login_register/login">iniciar sesión</a> o
+                                    <a href="<?php echo BASE_URL; ?>/views/login_register/register">registrarte</a>.
                                 </p>
                             </div>
                         <?php else: ?>
