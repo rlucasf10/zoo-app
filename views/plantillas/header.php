@@ -35,6 +35,8 @@ require_once __DIR__ . '/../../config/sql/database.php';
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/index.css">
+    <link rel="icon" type="image/x-icon" href="<?php echo BASE_URL; ?>/assets/images/favicon.png">
+
 
 
     <!-- Definir BASE_URL para JavaScript -->
