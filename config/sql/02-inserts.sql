@@ -13,7 +13,7 @@ INSERT INTO usuarios (
 VALUES (
         'Administrador',
         'admin',
-        'admin@zooapp.local',
+        'admin.zoo@gmail.com',
         '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
         1
     );

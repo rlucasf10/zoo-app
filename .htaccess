@@ -1,4 +1,4 @@
-DirectoryIndex index.php
+DirectoryIndex /zoo-app/index.php
 
 RewriteEngine On
 
