@@ -147,8 +147,11 @@ cd zoo-app
 ```bash
 
 3. Configurar la base de datos:
-- Importar el archivo `config/sql/zoo-app.sql` en MySQL
-- Configurar las credenciales en `config/database.php`
+- Importar el archivo `config/sql/01-zoo-app.sql` en MySQL
+- Importar el archivo `config/sql/02-inserts.sql` en MySQL
+- Copiar/Mover el archivo `.env.example` a `.env` en la raiz del proyecto
+- Configurar las credenciales en `.env`
+- Para que funcione el Login con Google, debes crear una credencial OAuth 2.0 en Google Cloud Console
 
 4. Configurar el servidor web:
 - Asegurar que Apache está configurado para usar el directorio `public` como raíz
@@ -176,11 +179,10 @@ docker-compose up --build
 ## 🔐 Credenciales de Prueba
 ### Administrador
 - Usuario: admin@zooapp.com
-- Contraseña: admin123
+- Contraseña: password
 
 ### Usuario Normal
-- Usuario: usuario@zooapp.com
-- Contraseña: user123
+- Crearlo desde el dashboard de administrador en la interfaz web
 
 ## 🤝 Contribuciones
 Las contribuciones son bienvenidas. Por favor, sigue estos pasos:
@@ -195,6 +197,6 @@ Este proyecto está bajo la licencia MIT. Ver el archivo `LICENSE` para más det
 
 ## 📬 Contacto
 Para consultas o sugerencias:
-- 📧 Email: tu-email@example.com
-- 🐙 GitHub: github.com/tu-usuario
-- 🔗 LinkedIn: linkedin.com/in/tu-perfil
+- 📧 Email: r.lucasf10@gmail.com
+- 🐙 GitHub: https://github.com/rlucasf10
+- 🔗 LinkedIn: linkedin.com/in/rlucasf10
