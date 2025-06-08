@@ -17,6 +17,15 @@ WORKDIR /var/www/html/zoo-app
 # Copia tu aplicación al directorio raíz del servidor Apache
 COPY . /var/www/html/zoo-app
 
+# INICIO DE LAS NUEVAS LÍNEAS DE CONFIGURACIÓN DE APACHE
+# Elimina la configuración por defecto de Apache
+RUN rm /etc/apache2/sites-enabled/000-default.conf
+# Copia tu propia configuración de VirtualHost al directorio de sitios disponibles
+COPY apache-zoo-app.conf /etc/apache2/sites-available/apache-zoo-app.conf
+# Habilita tu nueva configuración (crea un enlace simbólico a sites-enabled)
+RUN a2ensite apache-zoo-app.conf
+# FIN DE LAS NUEVAS LÍNEAS DE CONFIGURACIÓN DE APACHE
+
 # Copia Composer desde la imagen oficial
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
