@@ -52,4 +52,4 @@ config/local.php
 config/local.*.php
 
 # Archivos de Docker
-docker-compose.yml 
+docker-compose.yml
