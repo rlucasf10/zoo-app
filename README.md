@@ -57,14 +57,16 @@ zoo-app/
 │   │   └── reservas.js
 │   └── images/            # Imágenes del proyecto
 ├── config/                # Configuraciones
-│   ├── config.php        # Configuración general de la aplicación
-│   └── sql/              # Scripts SQL y configuración de base de datos
-│       ├── zoo-app.sql    # Script principal de la base de datos
+│   ├── composer.json     # Configuración de dependencias de Composer
+│   ├── composer.lock     # Versiones exactas de dependencias
+│   ├── config.php       # Configuración general de la aplicación
+│   └── sql/             # Scripts SQL y configuración de base de datos
+│       ├── zoo-app.sql   # Script principal de la base de datos
 │       ├── select_delete.sql
-│       ├── inserts.sql    # Datos iniciales
-│       ├── database.php   # Configuración de conexión
-│       ├── zoo-app.mwb    # Modelo Workbench
-│       ├── zoo-app.png    # Diagrama de la base de datos
+│       ├── inserts.sql   # Datos iniciales
+│       ├── database.php  # Configuración de conexión
+│       ├── zoo-app.mwb   # Modelo Workbench
+│       ├── zoo-app.png   # Diagrama de la base de datos
 │       └── relacionesBD.txt
 ├── controllers/           # Controladores de la aplicación
 │   ├── AdminController.php
@@ -105,7 +107,14 @@ zoo-app/
 ├── .env                  # Variables de entorno
 ├── .gitignore           # Archivos ignorados por Git
 ├── index.php            # Punto de entrada principal
-└── README.md            # Documentación principal
+├── README.md            # Documentación principal
+├── LICENSE              # Archivo de licencia MIT
+├── Dockerfile          # Configuración para construcción de imagen Docker
+├── docker-compose.yml  # Configuración de servicios Docker
+├── docker-compose.yml.example # Ejemplo de configuración Docker
+├── robots.txt         # Configuración para crawlers
+├── sitemap.xml       # Mapa del sitio para SEO
+└── google55aafcb360aa39fd.html # Verificación de Google Search Console
 ```
 
 ## 📦 Requisitos del Sistema
@@ -147,8 +156,11 @@ cd zoo-app
 ```bash
 
 3. Configurar la base de datos:
-- Importar el archivo `config/sql/zoo-app.sql` en MySQL
-- Configurar las credenciales en `config/database.php`
+- Importar el archivo `config/sql/01-zoo-app.sql` en MySQL
+- Importar el archivo `config/sql/02-inserts.sql` en MySQL
+- Copiar/Mover el archivo `.env.example` a `.env` en la raiz del proyecto
+- Configurar las credenciales en `.env`
+- Para que funcione el Login con Google, debes crear una credencial OAuth 2.0 en Google Cloud Console
 
 4. Configurar el servidor web:
 - Asegurar que Apache está configurado para usar el directorio `public` como raíz
@@ -176,11 +188,10 @@ docker-compose up --build
 ## 🔐 Credenciales de Prueba
 ### Administrador
 - Usuario: admin@zooapp.com
-- Contraseña: admin123
+- Contraseña: password
 
 ### Usuario Normal
-- Usuario: usuario@zooapp.com
-- Contraseña: user123
+- Crearlo desde el dashboard de administrador en la interfaz web
 
 ## 🤝 Contribuciones
 Las contribuciones son bienvenidas. Por favor, sigue estos pasos:
@@ -195,6 +206,6 @@ Este proyecto está bajo la licencia MIT. Ver el archivo `LICENSE` para más det
 
 ## 📬 Contacto
 Para consultas o sugerencias:
-- 📧 Email: tu-email@example.com
-- 🐙 GitHub: github.com/tu-usuario
-- 🔗 LinkedIn: linkedin.com/in/tu-perfil
+- 📧 Email: r.lucasf10@gmail.com
+- 🐙 GitHub: https://github.com/rlucasf10
+- 🔗 LinkedIn: linkedin.com/in/rlucasf10

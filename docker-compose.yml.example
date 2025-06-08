@@ -17,9 +17,9 @@ services:
     restart: always
     environment:
       MYSQL_DATABASE: zoo_app
-      MYSQL_USER: riky
-      MYSQL_PASSWORD: 4578
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: usuario
+      MYSQL_PASSWORD: contraseña
+      MYSQL_ROOT_PASSWORD: contraseña_root
     ports:
       - "3307:3306"
     volumes:
