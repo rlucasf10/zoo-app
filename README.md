@@ -79,6 +79,14 @@ zoo-app/
 ├── doc/                   # Documentación del proyecto
 │   ├── estructura.txt     # Estructura detallada del proyecto
 │   └── requirements.txt   # Requisitos del sistema
+├── Kubernetes/           # Configuración de Kubernetes
+│   ├── app-config-configmap.yaml        # ConfigMap para la aplicación
+│   ├── mysql-configmaps.yaml            # ConfigMaps de MySQL
+│   ├── mysql-credentials-secret.yaml     # Secretos de MySQL
+│   ├── mysql-deployment-service.yaml     # Deployment y Service de MySQL
+│   ├── ngrok-ingress-zoo-app.yaml       # Ingress para ngrok
+│   ├── phpmyadmin-deployment-service.yaml # Deployment y Service de phpMyAdmin
+│   └── web-app-deployment-service.yaml   # Deployment y Service de la aplicación web
 ├── vendor/               # Dependencias de Composer
 ├── views/                # Vistas de la aplicación
 │   ├── admin/           # Vistas del panel de administración
