@@ -71,9 +71,9 @@ spec:
               subPath: my.cnf # Especifica que solo se monte el archivo 'my.cnf' del ConfigMap
           resources:
             limits:
-              memory: 512Mi # Límite máximo de memoria
+              memory: "512Mi" # Límite máximo de memoria
             requests:
-              memory: 256Mi # Memoria mínima solicitada
+              memory: "256Mi" # Memoria mínima solicitada
       volumes:
         # Define el volumen para el almacenamiento persistente (PVC)
         - name: mysql-persistent-storage
@@ -90,7 +90,7 @@ spec:
 
 ---
 
-# Servicio de MySQL - Para permitir que otros pods se conecten a la base de datos
+# Servicio de MySQL - Ahora como NodePort
 apiVersion: v1
 kind: Service
 metadata:
@@ -99,13 +99,12 @@ metadata:
     app: zoo-app
     tier: database
 spec:
+  type: NodePort # ¡CAMBIADO a NodePort!
   ports:
     - port: 3306 # Puerto del servicio (el puerto que la aplicación usará para conectarse)
       targetPort: 3306 # El puerto del contenedor al que el servicio redirigirá el tráfico
+      nodePort: 30090 # Un NodePort libre, usualmente entre 30000-32767. Asegúrate de que no esté en uso.
   selector:
     app: zoo-app
     tier: database # Selecciona los pods que tienen esta etiqueta
-  clusterIP: None # Un ClusterIP de tipo None crea un "headless service" que expone directamente los IPs de los pods.
-                  # Esto es útil si tu aplicación (o phpmyadmin) necesita conectar a una instancia específica,
-                  # o para StatefulSets (que no estamos usando directamente aquí, pero es una buena práctica).
-                  # Para una base de datos de una sola réplica, funciona como un servicio normal.
+  # ¡La línea 'clusterIP: None' ha sido ELIMINADA para NodePort!
