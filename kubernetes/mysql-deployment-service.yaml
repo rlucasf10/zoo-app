@@ -1,0 +1,111 @@
+# mysql-pvc-deployment-service.yaml
+
+# Persistent Volume Claim (PVC) - Solicitud de almacenamiento para MySQL
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+spec:
+  accessModes:
+    - ReadWriteOnce # Este modo significa que el volumen puede ser montado como lectura-escritura por un único nodo.
+  resources:
+    requests:
+      storage: 5Gi # Solicita 5 Gigabytes de almacenamiento.
+
+---
+
+# Despliegue de MySQL
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zoo-app-mysql
+  labels:
+    app: zoo-app
+    tier: database
+spec:
+  replicas: 1 # Solo una réplica para la base de datos, para evitar problemas de concurrencia y gestión de datos.
+  selector:
+    matchLabels:
+      app: zoo-app
+      tier: database
+  template:
+    metadata:
+      labels:
+        app: zoo-app
+        tier: database
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:5.7 # Utiliza la imagen oficial de MySQL 5.7
+          ports:
+            - containerPort: 3306 # El puerto interno del contenedor MySQL
+          env:
+            # Recupera las credenciales de MySQL del secreto 'mysql-credentials-secret'
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-credentials-secret
+                  key: MYSQL_ROOT_PASSWORD
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-credentials-secret
+                  key: MYSQL_USER
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-credentials-secret
+                  key: MYSQL_PASSWORD
+            - name: MYSQL_DATABASE # Nombre de la base de datos (según tu docker-compose)
+              value: zoo_app
+          volumeMounts:
+            # Monta el volumen persistente para los datos de MySQL
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+            # Monta el ConfigMap de scripts SQL para inicialización
+            - name: mysql-init-volume
+              mountPath: /docker-entrypoint-initdb.d/ # Directorio donde MySQL busca scripts de inicialización
+            # Monta el ConfigMap para la configuración personalizada de MySQL (my.cnf)
+            - name: mysql-config-volume
+              mountPath: /etc/mysql/conf.d/my.cnf # Ruta exacta donde MySQL espera el archivo my.cnf
+              subPath: my.cnf # Especifica que solo se monte el archivo 'my.cnf' del ConfigMap
+          resources:
+            limits:
+              memory: 512Mi # Límite máximo de memoria
+            requests:
+              memory: 256Mi # Memoria mínima solicitada
+      volumes:
+        # Define el volumen para el almacenamiento persistente (PVC)
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
+        # Define el volumen que usará el ConfigMap con los scripts de inicialización
+        - name: mysql-init-volume
+          configMap:
+            name: mysql-init-scripts # Referencia al ConfigMap que creaste
+        # Define el volumen que usará el ConfigMap con la configuración de my.cnf
+        - name: mysql-config-volume
+          configMap:
+            name: mysql-my-cnf # Referencia al ConfigMap que creaste
+
+---
+
+# Servicio de MySQL - Para permitir que otros pods se conecten a la base de datos
+apiVersion: v1
+kind: Service
+metadata:
+  name: zoo-app-mysql # Nombre del servicio, que la aplicación usará para conectarse
+  labels:
+    app: zoo-app
+    tier: database
+spec:
+  ports:
+    - port: 3306 # Puerto del servicio (el puerto que la aplicación usará para conectarse)
+      targetPort: 3306 # El puerto del contenedor al que el servicio redirigirá el tráfico
+  selector:
+    app: zoo-app
+    tier: database # Selecciona los pods que tienen esta etiqueta
+  clusterIP: None # Un ClusterIP de tipo None crea un "headless service" que expone directamente los IPs de los pods.
+                  # Esto es útil si tu aplicación (o phpmyadmin) necesita conectar a una instancia específica,
+                  # o para StatefulSets (que no estamos usando directamente aquí, pero es una buena práctica).
+                  # Para una base de datos de una sola réplica, funciona como un servicio normal.

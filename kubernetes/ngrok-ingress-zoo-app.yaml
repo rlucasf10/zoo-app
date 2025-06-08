@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: zoo-app-ingress # Nombre de tu recurso Ingress
+  annotations:
+    ingress.class: ngrok # Indica que este Ingress lo gestiona el controlador de ngrok
+    # Puedes añadir otras anotaciones específicas de ngrok si necesitas,
+    # como reglas de tráfico o autenticación.
+spec:
+  ingressClassName: ngrok # Usa el IngressClass proporcionado por ngrok
+  rules:
+    - host: "pure-yak-weekly.ngrok-free.app" # ¡IMPORTANTE! Tu dominio estático de ngrok aquí
+      http:
+        paths:
+          - path: /zoo-app # La ruta base de tu aplicación
+            pathType: Prefix # Coincide con cualquier ruta que empiece con /zoo-app
+            backend:
+              service:
+                name: zoo-app-web # El nombre de tu servicio de aplicación web
+                port:
+                  number: 80 # El puerto del servicio ClusterIP de tu aplicación (el 'port' no el 'targetPort')
+

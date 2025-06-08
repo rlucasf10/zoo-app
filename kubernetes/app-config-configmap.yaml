@@ -1,0 +1,16 @@
+# app-config-configmap.yaml
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config-configmap # Nombre del ConfigMap para las variables no sensibles
+data:
+  DB_HOST: zoo-app-mysql # El nombre del servicio de Kubernetes de tu base de datos MySQL
+  DB_PORT: "3306" # Siempre es mejor poner valores como strings en ConfigMaps
+  DB_NAME: "zoo_app"
+
+  # ¡IMPORTANTE! Revisa esta URL para tu entorno de despliegue.
+  # "localhost" solo funciona dentro del contenedor para referirse a sí mismo.
+  # Si tu aplicación es accesible externamente, esto debe ser la IP/dominio público y puerto.
+  # Por ejemplo, si usas el NodePort 30080: "http://<IP_DE_TU_NODO>:30080/zoo-app/controllers/google-callback.php"
+  GOOGLE_REDIRECT_URI: "http://localhost/zoo-app/controllers/google-callback.php"
