@@ -181,6 +181,10 @@ cd zoo-app
 docker-compose up --build
 ```
 
+3. Crear secreto de Kubernetes a partir del '.env' modifcado
+```bash
+kubectl create secret generic zoo-app-env-file --from-file=.env
+```
 3. Acceder a la aplicación:
 - Abrir `http://localhost` en el navegador
 - phpMyAdmin: `http://localhost:8080` (usuario: root, contraseña: root)

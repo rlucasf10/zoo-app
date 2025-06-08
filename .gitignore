@@ -53,3 +53,6 @@ config/local.*.php
 
 # Archivos de Docker
 docker-compose.yml
+
+# Kubernetes
+mysql-credentials-secret.yaml
