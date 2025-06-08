@@ -57,14 +57,16 @@ zoo-app/
 │   │   └── reservas.js
 │   └── images/            # Imágenes del proyecto
 ├── config/                # Configuraciones
-│   ├── config.php        # Configuración general de la aplicación
-│   └── sql/              # Scripts SQL y configuración de base de datos
-│       ├── zoo-app.sql    # Script principal de la base de datos
+│   ├── composer.json     # Configuración de dependencias de Composer
+│   ├── composer.lock     # Versiones exactas de dependencias
+│   ├── config.php       # Configuración general de la aplicación
+│   └── sql/             # Scripts SQL y configuración de base de datos
+│       ├── zoo-app.sql   # Script principal de la base de datos
 │       ├── select_delete.sql
-│       ├── inserts.sql    # Datos iniciales
-│       ├── database.php   # Configuración de conexión
-│       ├── zoo-app.mwb    # Modelo Workbench
-│       ├── zoo-app.png    # Diagrama de la base de datos
+│       ├── inserts.sql   # Datos iniciales
+│       ├── database.php  # Configuración de conexión
+│       ├── zoo-app.mwb   # Modelo Workbench
+│       ├── zoo-app.png   # Diagrama de la base de datos
 │       └── relacionesBD.txt
 ├── controllers/           # Controladores de la aplicación
 │   ├── AdminController.php
@@ -105,7 +107,14 @@ zoo-app/
 ├── .env                  # Variables de entorno
 ├── .gitignore           # Archivos ignorados por Git
 ├── index.php            # Punto de entrada principal
-└── README.md            # Documentación principal
+├── README.md            # Documentación principal
+├── LICENSE              # Archivo de licencia MIT
+├── Dockerfile          # Configuración para construcción de imagen Docker
+├── docker-compose.yml  # Configuración de servicios Docker
+├── docker-compose.yml.example # Ejemplo de configuración Docker
+├── robots.txt         # Configuración para crawlers
+├── sitemap.xml       # Mapa del sitio para SEO
+└── google55aafcb360aa39fd.html # Verificación de Google Search Console
 ```
 
 ## 📦 Requisitos del Sistema
