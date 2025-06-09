@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: vault-token-reviewer
+  namespace: default # O el namespace donde necesites que el reviewer esté, default es común
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: vault-token-reviewer-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:auth-delegator # Este ClusterRole permite revisar tokens
+subjects:
+  - kind: ServiceAccount
+    name: vault-token-reviewer
+    namespace: default

@@ -1,0 +1,13 @@
+# simple-test-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: simple-test-pod
+  labels:
+    app: test-simple
+spec:
+  containers:
+  - name: busybox
+    image: busybox
+    command: ["sh", "-c", "echo Hello Kubernetes && sleep 3600"]
+  restartPolicy: Never # Para que no intente reiniciarse si falla

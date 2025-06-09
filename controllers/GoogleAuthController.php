@@ -48,6 +48,12 @@ class GoogleAuthController
         $this->client->addScope('profile');
         $this->client->setAccessType('offline');
         $this->client->setPrompt('consent');
+        
+        // Agregar device_id y device_name para IPs privadas
+        if (isset($_ENV['GOOGLE_DEVICE_ID']) && isset($_ENV['GOOGLE_DEVICE_NAME'])) {
+            $this->client->setConfig('device_id', $_ENV['GOOGLE_DEVICE_ID']);
+            $this->client->setConfig('device_name', $_ENV['GOOGLE_DEVICE_NAME']);
+        }
 
         // Configuración de desarrollo
         $this->client->setHttpClient(new GuzzleHttp\Client([

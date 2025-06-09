@@ -19,33 +19,97 @@ spec:
       labels:
         app: zoo-app
         tier: frontend
+      annotations:
+        # IMPORTANTE: Hemos eliminado la anotación vault.hashicorp.com/agent-inject: "true"
+        # para que el inyector no modifique este pod.
+        # Ahora, controlamos el initContainer manualmente.
+        vault.hashicorp.com/role: "zoo-app" # El rol de autenticación de K8s que creamos en Vault
+        # Anotación para inyectar el secreto estático de Google API
+        vault.hashicorp.com/agent-inject-secret-google-creds: "kv/zoo-app-static/google-creds"
+        # Anotación para inyectar el secreto dinámico de MySQL
+        vault.hashicorp.com/agent-inject-secret-db-creds: "database/creds/zoo-app-web-role"
+        
+        # Esta anotación YA NO ES LA FUENTE DE LA PLANTILLA, pero la mantenemos para referencia
+        # y para que Kubernetes la vea como un cambio en el Pod Template si se modifica.
+        vault.hashicorp.com/agent-inject-template-env: |
+          {{- with secret "kv/zoo-app-static/google-creds" -}}
+          GOOGLE_CLIENT_ID={{ .Data.data.client_id }}
+          GOOGLE_CLIENT_SECRET={{ .Data.data.client_secret }}
+          GOOGLE_REDIRECT_URI={{ .Data.data.redirect_uri }}
+          {{- end -}}
+          {{- "\n" -}} # Mantener esta línea explícita para el salto de línea
+          {{- with secret "database/creds/zoo-app-web-role" -}}
+          DB_HOST=zoo-app-mysql
+          DB_PORT=3306
+          DB_NAME=zoo_app # <--- Aquí dejamos zoo_app
+          DB_USER={{ .Data.username }}
+          DB_PASS={{ .Data.password }}
+          {{- end -}}
+          # Puedes añadir otras variables de entorno si las necesitas de ConfigMaps
+          # Por ejemplo: DB_HOST, DB_PORT, DB_NAME (si no vienen de Vault)
+          # Asegúrate que tu aplicación PHP lea este archivo .env
+
+        # ¡Esta anotación ahora APUNTA a la ruta del archivo que el agente configurará en el HCL!
+        vault.hashicorp.com/agent-inject-path-env: "/vault/secrets/.env" # <--- ¡CAMBIO AQUÍ!
     spec:
+      serviceAccountName: default # O el nombre de tu ServiceAccount si no usas 'default'
+      initContainers: # <--- ¡DEFINIMOS EL INIT CONTAINER MANUALMENTE!
+        - name: vault-agent-init
+          image: hashicorp/vault:1.17.0 # Versión ajustada para coincidir con tu servidor Vault
+          command: ["vault", "agent", "-config=/vault/agent-config.hcl", "-log-level=info", "-exit-after-auth"]
+          env:
+            - name: VAULT_ADDR
+              value: "http://192.168.1.102:8200" # <--- ¡LA IP DE TU VM DE VAULT AQUÍ!
+          volumeMounts:
+            - name: vault-agent-config-manual # Debe coincidir con el nombre del volumen
+              mountPath: /vault/agent-config.hcl
+              subPath: agent-config.hcl # Montar solo el archivo, no el directorio
+            - name: vault-secrets # Para que el agente escriba el token y los secretos
+              mountPath: /vault/secrets
+            - name: home-init # <--- ¡MONTAJE DEL VOLUMEN /home/vault AHORA ESCRIBIBLE!
+              mountPath: /home/vault
+          securityContext: # Asegura que tenga los permisos necesarios para IPC_LOCK
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - IPC_LOCK # Necesario para que Vault Agent bloquee la memoria
+            # readOnlyRootFilesystem: true # Descomentar si necesitas que /home/vault/ sea de solo lectura después de la inicialización
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 100
+          resources: # Define los recursos mínimos para el init container
+            limits:
+              cpu: 500m
+              memory: 128Mi
+            requests:
+              cpu: 250m
+              memory: 64Mi
       containers:
         - name: php-app
-          # Tu imagen de Docker Hub (rlucasf10/zoo-app-web:latest)
           image: rlucasf10/zoo-app-web:latest
           ports:
-            - containerPort: 80 # El puerto que tu aplicación web escucha
-
-          # La sección 'env:' se ha eliminado por completo.
-          # Tus variables de entorno se leerán del archivo .env montado
-          # desde el Secret 'zoo-app-env-file'.
-
-          volumeMounts:
-            # Monta el Secret 'zoo-app-env-file' como un archivo .env
-            - name: env-file-volume
-              mountPath: /var/www/html/zoo-app/.env # Ruta donde tu aplicación espera el .env
-              subPath: .env # Monta el contenido de la clave '.env' del Secret como un archivo
-
-      volumes: # <--- ¡IMPORTANTE! Esta sección ahora está en el nivel correcto (al mismo nivel que 'containers')
-        # Define el volumen que usará el Secret 'zoo-app-env-file'
-        - name: env-file-volume
-          secret:
-            secretName: zoo-app-env-file # Nombre del Secret creado con 'kubectl create secret ... --from-file=.env'
+            - containerPort: 80
+          volumeMounts: # Tu aplicación necesita acceder a los secretos inyectados
+            - name: vault-secrets
+              mountPath: /vault/secrets
+      volumes: # <--- ¡DEFINIMOS LOS VOLÚMENES NECESARIOS MANUALMENTE!
+        - name: vault-agent-config-manual # Este es el ConfigMap para la configuración del agente
+          configMap:
+            name: vault-agent-config-manual # ¡Este ConfigMap DEBE existir!
+            items:
+              - key: agent-config.hcl # Nombre de la clave dentro del ConfigMap (¡ahora coincide!)
+                path: agent-config.hcl
+        - name: vault-secrets # Volumen compartido para que el agente y la app accedan a los secretos
+          emptyDir:
+            medium: Memory # Los secretos se almacenan en memoria
+        - name: home-init # <--- ¡VOLUMEN ESCRIBIBLE PARA /home/vault!
+          emptyDir: {} # Por defecto es lectura/escritura
 
 ---
 
-# Servicio de la aplicación web - Para exponerla al exterior o a otros servicios
+# Servicio de la aplicación web - ClusterIP (sin cambios)
 apiVersion: v1
 kind: Service
 metadata:
@@ -54,12 +118,11 @@ metadata:
     app: zoo-app
     tier: frontend
 spec:
-  type: ClusterIP # NodePort para acceder desde fuera del clúster
+  type: ClusterIP
   ports:
     - protocol: TCP
-      port: 80 # Puerto del servicio
-      targetPort: 80 # Puerto del contenedor al que se mapea
-      # La línea 'nodePort: 30080' se ELIMINA porque ya no es NodePort
+      port: 80
+      targetPort: 80
   selector:
     app: zoo-app
-    tier: frontend # Selecciona los pods que tienen esta etiqueta
+    tier: frontend

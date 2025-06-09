@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "6"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"zoo-app","tier":"frontend"},"name":"zoo-app-web","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"zoo-app","tier":"frontend"}},"template":{"metadata":{"annotations":{"vault.hashicorp.com/agent-inject":"true","vault.hashicorp.com/agent-inject-secret-db-creds":"database/creds/zoo-app-web-role","vault.hashicorp.com/agent-inject-secret-google-creds":"kv/zoo-app-static/google-creds","vault.hashicorp.com/agent-inject-template-env":"{{- with secret \"kv/zoo-app-static/google-creds\" -}}\nGOOGLE_CLIENT_ID={{ .Data.data.client_id }}\nGOOGLE_CLIENT_SECRET={{ .Data.data.client_secret }}\nGOOGLE_REDIRECT_URI={{ .Data.data.redirect_uri }}\n{{- end -}}\n{{- with secret \"database/creds/zoo-app-web-role\" -}}\nDB_HOST=zoo-app-mysql # Sigue siendo el nombre del servicio de K8s\nDB_PORT=3306\nDB_NAME=zoo_app\nDB_USER={{ .Data.username }}\nDB_PASS={{ .Data.password }}\n{{- end -}}\n# Puedes añadir otras variables de entorno si las necesitas de ConfigMaps\n# Por ejemplo: DB_HOST, DB_PORT, DB_NAME (si no vienen de Vault)\n# Asegúrate que tu aplicación PHP lea este archivo .env\n","vault.hashicorp.com/role":"zoo-app","vault.hashicorp.com/vault-address":"http://192.168.1.102:8200"},"labels":{"app":"zoo-app","tier":"frontend"}},"spec":{"containers":[{"image":"rlucasf10/zoo-app-web:latest","name":"php-app","ports":[{"containerPort":80}]}],"serviceAccountName":"default"}}}}
+  creationTimestamp: "2025-06-08T10:52:38Z"
+  generation: 14
+  labels:
+    app: zoo-app
+    tier: frontend
+  name: zoo-app-web
+  namespace: default
+  resourceVersion: "82369"
+  uid: 629cb7ec-d849-4b29-a5d9-b8213f106874
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: zoo-app
+      tier: frontend
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2025-06-09T01:00:39+02:00"
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/agent-inject-secret-db-creds: database/creds/zoo-app-web-role
+        vault.hashicorp.com/agent-inject-secret-google-creds: kv/zoo-app-static/google-creds
+        vault.hashicorp.com/agent-inject-template-env: |
+          {{- with secret "kv/zoo-app-static/google-creds" -}}
+          GOOGLE_CLIENT_ID={{ .Data.data.client_id }}
+          GOOGLE_CLIENT_SECRET={{ .Data.data.client_secret }}
+          GOOGLE_REDIRECT_URI={{ .Data.data.redirect_uri }}
+          {{- end -}}
+          {{- with secret "database/creds/zoo-app-web-role" -}}
+          DB_HOST=zoo-app-mysql # Sigue siendo el nombre del servicio de K8s
+          DB_PORT=3306
+          DB_NAME=zoo_app
+          DB_USER={{ .Data.username }}
+          DB_PASS={{ .Data.password }}
+          {{- end -}}
+          # Puedes añadir otras variables de entorno si las necesitas de ConfigMaps
+          # Por ejemplo: DB_HOST, DB_PORT, DB_NAME (si no vienen de Vault)
+          # Asegúrate que tu aplicación PHP lea este archivo .env
+        vault.hashicorp.com/role: zoo-app
+        vault.hashicorp.com/vault-address: http://192.168.1.102:8200
+      creationTimestamp: null
+      labels:
+        app: zoo-app
+        tier: frontend
+    spec:
+      containers:
+      - image: rlucasf10/zoo-app-web:latest
+        imagePullPolicy: Always
+        name: php-app
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: default
+      serviceAccountName: default
+      terminationGracePeriodSeconds: 30
+status:
+  conditions:
+  - lastTransitionTime: "2025-06-08T18:13:38Z"
+    lastUpdateTime: "2025-06-08T18:13:38Z"
+    message: Deployment does not have minimum availability.
+    reason: MinimumReplicasUnavailable
+    status: "False"
+    type: Available
+  - lastTransitionTime: "2025-06-08T23:44:58Z"
+    lastUpdateTime: "2025-06-08T23:44:58Z"
+    message: ReplicaSet "zoo-app-web-6b4d684d4d" is progressing.
+    reason: ReplicaSetUpdated
+    status: "True"
+    type: Progressing
+  observedGeneration: 14
+  replicas: 2
+  unavailableReplicas: 2
+  updatedReplicas: 1
